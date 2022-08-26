@@ -12,6 +12,7 @@ int main(int ac, char **av)
 	pid_t pid;
 	int is_atty = isatty(STDIN_FILENO);
 
+	*cmd = NULL; 
 	while(1)
 	{
 		if (is_atty)
@@ -38,7 +39,9 @@ int main(int ac, char **av)
 		else
 			wait(&w);
 	}
-	free(*cmd);
+
+	if (*cmd != NULL)
+		free(*cmd);
 	free(cmd);
 	return 0;
 }
