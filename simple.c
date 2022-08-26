@@ -8,7 +8,7 @@ int main(int ac, char **av)
         char **cmd = malloc(sizeof(*cmd) * 2);
 	size_t max = 100;
         extern char **environ;
-	int w;
+	int w = ac;
 	pid_t pid;
 	int is_atty = isatty(STDIN_FILENO);
 
@@ -32,7 +32,7 @@ int main(int ac, char **av)
 		if (pid == 0)
 		{
 			execve(cmd[0], cmd, environ);
-			printf("%s: %s: not found\n", av[0], cmd[0]);
+			printf("%s: %i: %s: not found\n", av[0], 1, cmd[0]);
 			break;
 		}
 		else
