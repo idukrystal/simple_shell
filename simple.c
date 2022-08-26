@@ -5,7 +5,7 @@
 
 int main(int ac, char **av)
 {
-        char **cmd = malloc(sizeof(*cmd) * 2);
+        char **cmd = malloc(sizeof(*cmd) * 1);
 	size_t max = 100;
         extern char **environ;
 	int w = ac;
@@ -38,6 +38,7 @@ int main(int ac, char **av)
 		else
 			wait(&w);
 	}
+	free(*cmd);
 	free(cmd);
 	return 0;
 }
