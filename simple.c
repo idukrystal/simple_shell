@@ -12,7 +12,6 @@ int main(int ac, char **av)
 	pid_t pid;
 	int is_atty = isatty(STDIN_FILENO);
 
-	cmd[1] = NULL;
 	while(1)
 	{
 		if (is_atty)
@@ -33,7 +32,7 @@ int main(int ac, char **av)
 		if (pid == 0)
 		{
 			execve(cmd[0], cmd, environ);
-			printf("%s: %i: %s: not found\n", av[0], 1, cmd[0]);
+			printf("%s: %s: not found\n", av[0], cmd[0]);
 			break;
 		}
 		else
