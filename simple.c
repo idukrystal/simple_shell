@@ -32,6 +32,7 @@ int main(int ac, char **av)
 		if (pid == 0)
 		{
 			execve(args[0], args, environ);
+			execve(getpath(args[0]), args, environ);
 			printf("%s: %s: not found\n", av[0], cmd[0]);
 			break;
 		}
@@ -41,7 +42,9 @@ int main(int ac, char **av)
 
 	if (*cmd != NULL)
 		free(*cmd);
-	free_args(args);
+
+	if (args != NULL)
+		free_args(args);
 	free(cmd);
 	return 0;
 }
