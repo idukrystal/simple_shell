@@ -64,3 +64,18 @@ void free_args(char **args)
 		free(args[i++]);
 	free (args);
 }
+int _strlen(char *p)
+{
+	int i;
+
+	for (i = 0; p[i]; ++i)
+		;
+	return (i);
+}
+void _strcpy(char *from, char *to)
+{
+	int i;
+
+	for (i = 0; from[i]; ++i)
+		to[i] = from[i];
+}
