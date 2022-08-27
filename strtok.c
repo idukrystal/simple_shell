@@ -1,3 +1,5 @@
+#include "main.h"
+
 int count_args(char *str, char del)
 {
 	int i = 0;

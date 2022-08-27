@@ -1,11 +1,9 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/wait.h>
+#include "main.h"
 
 int main(int ac, char **av)
 {
         char **cmd = malloc(sizeof(*cmd) * 1);
+	char **args;
 	size_t max = 100;
         extern char **environ;
 	int w = ac;
@@ -29,10 +27,11 @@ int main(int ac, char **av)
 		(*cmd)[w - 1] = '\0';//((*cmd)[w - 1] == '\n') ? '\0' : (*cmd)[w-1];
 		if(strcmp(*cmd,"exit") == 0)
 			break;
+		args = extract_args(*cmd, ' ', count_args(*cmd, ' '));
 		pid = fork();
 		if (pid == 0)
 		{
-			execve(cmd[0], cmd, environ);
+			execve(args[0], args, environ);
 			printf("%s: %s: not found\n", av[0], cmd[0]);
 			break;
 		}
@@ -42,6 +41,7 @@ int main(int ac, char **av)
 
 	if (*cmd != NULL)
 		free(*cmd);
+	free_args(args);
 	free(cmd);
 	return 0;
 }
