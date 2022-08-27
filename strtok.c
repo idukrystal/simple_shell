@@ -1,4 +1,4 @@
-int count_args(char *str)
+int count_args(char *str, char del)
 {
 	int i = 0;
 	char c;
@@ -7,7 +7,7 @@ int count_args(char *str)
 	while (str[i] != '\0')
 	{
 
-		while (str[i]  == ' ')
+		while (str[i]  == del)
 		{
 			i++;
 		}
@@ -15,7 +15,7 @@ int count_args(char *str)
 		{
 			count++;
 		}
-		while (str[i] != ' ' && str[i] != '\0')
+		while (str[i] != del && str[i] != '\0')
 		{
 			i++;
 	        }
@@ -23,7 +23,7 @@ int count_args(char *str)
 	return (count);
 }
 
-char **extract_args(char *input, int arg_count)
+char **extract_args(char *input, char del, int arg_count)
 {
 	char **args = malloc((sizeof(*args) * arg_count) + 1);
 	int pos = 0, i = 0, j, k;
@@ -32,12 +32,12 @@ char **extract_args(char *input, int arg_count)
 	while (input[i] != '\0')
         {
 
-                while (input[i]  == ' ')
+                while (input[i]  == del)
                 {
                         i++;
                 }
 		j = i;
-                while (input[j] != ' ' && input[j] != '\0')
+                while (input[j] != del && input[j] != '\0')
                 {
                         j++;
                 }
@@ -59,6 +59,6 @@ void free_args(char **args)
 {
 	int i = 0;
 	while (args[i] != NULL)
-		free(arg[i++]);
+		free(args[i++]);
 	free (args);
 }
