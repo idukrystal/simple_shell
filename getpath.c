@@ -1,4 +1,5 @@
 #include "main.h"
+
 char *getpath(char *cmd)
 {
 	extern char **environ;
