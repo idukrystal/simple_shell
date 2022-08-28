@@ -9,10 +9,11 @@ char *_getenv(const char *name)
 		j = 0;
 		if (environ[i][j] == name[j])
 		{
-			while(environ[i][j] == name[j++])
+			while(environ[i][j] == name[j])
 			{
+				j++;
 			}
-			if (environ[i][--j] == '=' && name[j] == '\0')
+			if (environ[i][j] == '=' && name[j] == '\0')
 			{
 				return (environ[i]);
 			}

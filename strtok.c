@@ -3,7 +3,6 @@
 int count_args(char *str, char del)
 {
 	int i = 0;
-	char c;
 	int count = 0;
 
 	while (str[i] != '\0')
@@ -30,7 +29,6 @@ char **extract_args(char *input, char del, int arg_count)
 	char **args = malloc((sizeof(*args) * arg_count) + 1);
 	int pos = 0, i = 0, j, k;
 
-	args[arg_count] = NULL;
 	while (input[i] != '\0')
         {
 
@@ -54,6 +52,7 @@ char **extract_args(char *input, char del, int arg_count)
 		}
 		i = j;
         }
+	args[pos] = NULL;
 	return (args);
 }
 
@@ -61,7 +60,9 @@ void free_args(char **args)
 {
 	int i = 0;
 	while (args[i] != NULL)
+	{
 		free(args[i++]);
+	}
 	free (args);
 }
 int _strlen(char *p)

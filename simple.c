@@ -2,20 +2,19 @@
 
 int main(int ac, char **av)
 {
-        char **cmd = malloc(sizeof(*cmd) * 1);
-	char **args;
+	char *cmd = NULL;
+	char **args = NULL;
 	size_t max = 100;
         extern char **environ;
 	int w = ac;
 	pid_t pid;
 	int is_atty = isatty(STDIN_FILENO);
 
-	*cmd = NULL;
 	while(1)
 	{
 		if (is_atty)
 			printf("($) ");
-		w = getline(cmd, &max, stdin);
+		w = getline(&cmd, &max, stdin);
 		if (w == -1)
 		{
 			if (is_atty)
@@ -24,24 +23,27 @@ int main(int ac, char **av)
 		}
 		if (w == 1)
 			continue;
-		(*cmd)[w - 1] = '\0';//((*cmd)[w - 1] == '\n') ? '\0' : (*cmd)[w-1];
-		if(strcmp(*cmd,"exit") == 0)
+		cmd[w - 1] = '\0';
+		if(strcmp(cmd,"exit") == 0)
 			break;
-		args = extract_args(*cmd, ' ', count_args(*cmd, ' '));
+		args = extract_args(cmd, ' ', count_args(cmd, ' '));
 		pid = fork();
 		if (pid == 0)
 		{
 			execve(args[0], args, environ);
-			printf("%s: %s: not found\n", av[0], cmd[0]);
+			execve(getpath(args[0]), args, environ);
+			printf("%s: %s: not found\n", av[0], cmd);
 			break;
 		}
 		else
+		{
 			wait(&w);
+			if (args != NULL)
+				free_args(args);
+		}
 	}
+	if (cmd != NULL)
+		free(cmd);
 
-	if (*cmd != NULL)
-		free(*cmd);
-	free_args(args);
-	free(cmd);
 	return 0;
 }
