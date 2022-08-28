@@ -14,7 +14,7 @@ int main(int ac, char **av)
 		if (w == -1)
 		{
 			if (is_atty)
-				putchar('\n');
+				_putchar('\n');
 			break;
 		}
 		if (w == 1)
@@ -43,7 +43,7 @@ int main(int ac, char **av)
 void print_prompt(int is_term)
 {
 	if (is_term)
-		printf("($) ");
+		_printf("($) ");
 }
 
 void execute(char *full_path, char **args,char * name, char *cmd)
@@ -54,14 +54,14 @@ void execute(char *full_path, char **args,char * name, char *cmd)
 
 	if (full_path == NULL)
 	{
-		printf("%s: %s: not found\n", name, cmd);
+		_printf("%s: %s: not found\n", name, cmd);
 		return;
 	}
 	pid = fork();
 	if (pid == 0)
 	{
 		execve(full_path, args, environ);
-		printf("%s: %s: no such file or  directory\n",name, cmd);
+		_printf("%s: %s: no such file or  directory\n",name, cmd);
 		exit(-1);
 	}
 	else

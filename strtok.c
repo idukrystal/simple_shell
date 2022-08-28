@@ -65,7 +65,7 @@ void free_args(char **args)
 	}
 	free (args);
 }
-int _strlen(char *p)
+int _strlen(const char *p)
 {
 	int i;
 
