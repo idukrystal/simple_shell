@@ -23,15 +23,15 @@ char *getpath(char *cmd)
 			check[l] = cmd[m];
 		check[_strlen(PATH[i]) + k + 1] = '\0';
 		printf("%s\n", check);
-		/*if (access(check, X_OK) == 0)
-			break;*/
+		if (access(check, X_OK) == 0)
+			break;
+	}
+	if (access(check, X_OK) != 0)
+	{
+		free(check);
+		return (NULL);
 	}
 	free_args(PATH);
 	free(buf);
 	return (check);
-}
-void main(void)
-{
-	char *p = getpath("ls");
-	free(p);
 }

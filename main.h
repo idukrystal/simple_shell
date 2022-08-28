@@ -15,5 +15,6 @@ void free_args(char **args);
 char *getpath(char *cmd);
 int _strlen(char *p);
 void _strcpy(char *from, char *to);
+void printenv(void);
 
 #endif /* main_h */
