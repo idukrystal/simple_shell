@@ -22,7 +22,6 @@ char *getpath(char *cmd)
 		for (m = 0; cmd[m]; ++m, ++l)
 			check[l] = cmd[m];
 		check[_strlen(PATH[i]) + k + 1] = '\0';
-		printf("%s\n", check);
 		if (access(check, X_OK) == 0)
 			break;
 	}
