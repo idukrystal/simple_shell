@@ -9,6 +9,7 @@ int main(int ac, char **av)
         extern char **environ;
 	int w = ac;
 	pid_t pid;
+	int errno = 0;
 	int is_atty = isatty(STDIN_FILENO);
 
 	while(1)
@@ -25,8 +26,13 @@ int main(int ac, char **av)
 		if (w == 1)
 			continue;
 		cmd[w - 1] = '\0';
-		if(strcmp(cmd,"exit") == 0)
-			break;
+		errno = (run_built_in(cmd));
+		if (errno)
+		{
+			if (errno == 1)
+				break;
+			continue;
+		}
 		args = extract_args(cmd, ' ', count_args(cmd, ' '));
 		if (args[0][0] == '.' || args[0][0] == '/' || args[0][0] == '~')
 			full_path = args[0];
@@ -49,6 +55,7 @@ int main(int ac, char **av)
 			wait(&w);
 			if (args != NULL)
 				free_args(args);
+			free(full_path);
 		}
 	}
 	if (cmd != NULL)

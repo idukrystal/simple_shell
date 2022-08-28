@@ -14,6 +14,20 @@ void printenv(void)
 		_putchar('\n');
 	}
 }
+
+int run_built_in(char *cmd)
+{
+	if (strcmp(cmd, "exit") == 0)
+	{
+		return 1;
+	}
+	if (strcmp(cmd, "env") == 0)
+	{
+		printenv();
+		return 2;
+	}
+	return 0;
+}
 /*void main(void)
 {
 	printenv();
