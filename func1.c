@@ -14,7 +14,7 @@ void printenv(void)
 		_putchar('\n');
 	}
 }
-void main(void)
+/*void main(void)
 {
 	printenv();
-}
+	}*/

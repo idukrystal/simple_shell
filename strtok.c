@@ -52,7 +52,6 @@ char **extract_args(char *input, char del, int arg_count)
 		}
 		i = j;
         }
-	args[pos] = NULL;
 	return (args);
 }
 
