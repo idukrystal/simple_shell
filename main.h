@@ -17,5 +17,7 @@ int _strlen(char *p);
 void _strcpy(char *from, char *to);
 void printenv(void);
 int run_built_in(char *cmd);
+void print_prompt(int);
+void execute(char *full_path, char **args,char * name, char *cmd);
 
 #endif /* main_h */
