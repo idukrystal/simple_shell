@@ -3,7 +3,6 @@
 int count_args(char *str, char del)
 {
 	int i = 0;
-	char c;
 	int count = 0;
 
 	while (str[i] != '\0')
@@ -61,7 +60,9 @@ void free_args(char **args)
 {
 	int i = 0;
 	while (args[i] != NULL)
+	{
 		free(args[i++]);
+	}
 	free (args);
 }
 int _strlen(char *p)
