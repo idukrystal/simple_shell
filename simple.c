@@ -4,7 +4,6 @@ int main(int ac, char **av)
 {
 	char *cmd = NULL, *full_path, **args = NULL;
 	size_t max = 100;
-	pid_t pid;
 	int errno = 0, w = ac, is_atty = isatty(STDIN_FILENO);
 
 	while(1)
@@ -20,24 +19,24 @@ int main(int ac, char **av)
 		if (w == 1)
 			continue;
 		cmd[w - 1] = '\0';
-		errno = (run_built_in(cmd));
-		if (errno)
-		{
-			if (errno == 1)
-				break;
-			continue;
-		}
 		args = extract_args(cmd, ' ', count_args(cmd, ' '));
+		errno = (run_built_in(args, av[0]));
+                if (errno != -1)
+                {
+                        if (errno == 1)
+                                continue;
+                        break;
+                }
 		if (args[0][0] == '.' || args[0][0] == '/' || args[0][0] == '~')
 			full_path = args[0];
 		else
 			full_path = getpath(args[0]);
-		execute(full_path, args, av[0], cmd);
+		execute(full_path, args, av[0]);
 	}
 	if (cmd != NULL)
 		free(cmd);
 
-	return 0;
+	return errno;
 }
 
 void print_prompt(int is_term)
@@ -46,7 +45,7 @@ void print_prompt(int is_term)
 		_printf("($) ");
 }
 
-void execute(char *full_path, char **args,char * name, char *cmd)
+void execute(char *full_path, char **args,char * name)
 {
 	int i;
 	pid_t pid;
@@ -54,14 +53,14 @@ void execute(char *full_path, char **args,char * name, char *cmd)
 
 	if (full_path == NULL)
 	{
-		_printf("%s: %s: not found\n", name, cmd);
+		_printf("%s: %s: not found\n", name, args[0]);
 		return;
 	}
 	pid = fork();
 	if (pid == 0)
 	{
 		execve(full_path, args, environ);
-		_printf("%s: %s: no such file or  directory\n",name, cmd);
+		_printf("%s: %s: no such file or  directory\n",name, args[0]);
 		exit(-1);
 	}
 	else

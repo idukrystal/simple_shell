@@ -16,9 +16,9 @@ char *getpath(char *cmd);
 int _strlen(const char *p);
 void _strcpy(char *from, char *to);
 void printenv(void);
-int run_built_in(char *cmd);
+int run_built_in(char **cmd, char *);
 void print_prompt(int);
-void execute(char *full_path, char **args,char * name, char *cmd);
+void execute(char *full_path, char **args,char * name);
 
 
 int _printf(const char *format, ...);
@@ -30,6 +30,6 @@ unsigned int  print_number(int n);
 unsigned int  print_u_number(unsigned int n);
 int _putchar(char );
 unsigned int to_base(unsigned int,char);
-int print_address(long long );
+char *getvar(char *var);
 
 #endif /* main_h */
