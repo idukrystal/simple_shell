@@ -32,5 +32,8 @@ unsigned int  print_u_number(unsigned int n);
 int _putchar(char );
 unsigned int to_base(unsigned int,char);
 char *getvar(char *var);
+void _setenv(char *env, char *vne, int *eflag);
+int _getindex(const char *name);
+void _unsetenv(char *env, int *eflag);
 
 #endif /* main_h */
