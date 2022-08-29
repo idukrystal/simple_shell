@@ -18,7 +18,7 @@ int main(int ac, char **av)
 		}
 		if (w == 1)
 			continue;
-		cmd[w - 1] = '\0';
+		cmd[w - 1] = (cmd[w - 1] == '\n') ? '\0' : cmd[w - 1];
 		args = extract_args(cmd, ' ', count_args(cmd, ' '));
 		errno = (run_built_in(args, av[0]));
                 if (errno != -1)
