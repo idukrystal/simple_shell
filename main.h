@@ -19,12 +19,13 @@ void printenv(void);
 int run_built_in(char **cmd, char *);
 void print_prompt(int);
 void execute(char *full_path, char **args,char * name);
-
-
+int to_int(char *s, int start, int stop);
+int _strcmp(char *dest, char *src);
 int _printf(const char *format, ...);
 unsigned int validate(const char *, int);
 int is_valid(char c);
 char *convert_char(void *);
+int _atoi(char *s);
 char (*get_conversion_function(char c))(void *);
 unsigned int  print_number(int n);
 unsigned int  print_u_number(unsigned int n);

@@ -31,25 +31,30 @@ int run_built_in(char **cmd,char *name)
 {
 	char *str = NULL;
 
-	if (strcmp(cmd[0], "exit") == 0)
+	if (_strcmp(cmd[0], "exit") == 0)
 	{
 		if (cmd [1] == NULL)
 			return (0);
 		if (is_num(cmd[1]))
-			return (atoi(cmd[1]));
+			return (_atoi(cmd[1]));
 		_printf("%s: %s: invalid number %s", name,cmd[0], cmd[1]);
 		return 1;
    	}
-	if (strcmp(cmd[0], "env") == 0)
+	if (_strcmp(cmd[0], "env") == 0)
 	{
 		printenv();
 		return 1;
 	}
-	if (strcmp(cmd[0], "cd") == 0)
+	if (_strcmp(cmd[0], "cd") == 0)
 	{
 	        if (cmd[1] == NULL)
 		{
 			str = getvar("HOME");
+			chdir(str);
+		}
+		else if (_strcmp(cmd[1], "-")  == 0)
+		{
+			str = getvar("OLDPWD");
 			chdir(str);
 		}
 		else
