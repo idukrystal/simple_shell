@@ -17,3 +17,9 @@ int _getline(char **lineptr, size_t *n, FILE *stream)
 			}
 		}
 	}
+}
+
+int _getline(char **lineptr, size_t *n, FILE *stream)
+{
+	read();
+}
