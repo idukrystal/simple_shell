@@ -1,5 +1,5 @@
 #include "main.h"
-char *_getenv(const char *name)
+char **_getenv(const char *name)
 {
 	extern char **environ;
 	int i = -1, j;
@@ -15,7 +15,7 @@ char *_getenv(const char *name)
 			}
 			if (environ[i][j] == '=' && name[j] == '\0')
 			{
-				return (environ[i]);
+				return (&(environ[i]));
 			}
 		}
 	}

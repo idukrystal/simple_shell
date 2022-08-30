@@ -1,8 +1,5 @@
 #include "main.h"
-int  _putchar(char c)
-{
-	return (write(1, &c, 1));
-}
+
 void printenv(void)
 {
 	extern char **environ;
@@ -30,6 +27,8 @@ int is_num(char *s)
 int run_built_in(char **cmd,char *name)
 {
 	char *str = NULL;
+	char st[100];
+	int i;
 
 	if (_strcmp(cmd[0], "exit") == 0)
 	{
@@ -47,10 +46,15 @@ int run_built_in(char **cmd,char *name)
 	}
 	if (_strcmp(cmd[0], "cd") == 0)
 	{
+		str = 
+			getcwd(NULL, 0);
+		printf("---%s", str);
+		//_setenv("OLDPWD", str, &i);
 	        if (cmd[1] == NULL)
 		{
 			str = getvar("HOME");
 			chdir(str);
+			//_setenv("PWD", str, &i);
 		}
 		else if (_strcmp(cmd[1], "-")  == 0)
 		{
@@ -63,12 +67,20 @@ int run_built_in(char **cmd,char *name)
 			free(str);
 		return 1;
 	}
+	if (_strcmp(cmd[0], "setenv") == 0)
+	{
+		if (count(cmd) != 3)
+			_printf("usage : setenv VARIABLE VALUE\n");
+		else
+			_setenv(cmd[1], cmd[2], &i);
+		return 1;
+	}
 	return -1;
 }
 
 char *getvar(char *var)
 {
-	char *path  = _getenv(var);
+	char *path  = *_getenv(var);
 	char *home = malloc(sizeof(*home) * (_strlen(path) - _strlen(var) - 1));
 
 	int i = 0, j = 0;

@@ -4,9 +4,9 @@ int main(int ac, char **av)
 {
 	char *cmd = NULL, *full_path, **args = NULL;
 	size_t max = 100;
-	int errno = 0, w = ac, is_atty = isatty(STDIN_FILENO);
+	int ret  = 0, w = ac, is_atty = isatty(STDIN_FILENO);
 
-	while(1)
+	while (1)
 	{
 		print_prompt(is_atty);
 		w = getline(&cmd, &max, stdin);
@@ -20,37 +20,49 @@ int main(int ac, char **av)
 			continue;
 		cmd[w - 1] = (cmd[w - 1] == '\n') ? '\0' : cmd[w - 1];
 		args = extract_args(cmd, ' ', count_args(cmd, ' '));
-		errno = (run_built_in(args, av[0]));
-                if (errno != -1)
-                {
-                        if (errno == 1)
-                                continue;
-                        break;
-                }
-		if (args[0][0] == '.' || args[0][0] == '/' || args[0][0] == '~')
-			full_path = args[0];
-		else
-			full_path = getpath(args[0]);
-		execute(full_path, args, av[0]);
+		ret = (run_built_in(args, av[0]));
+		if (ret  != -1)
+		{
+			if (ret == 1)
+				continue;
+			break;
+		}
+		execute(args, av[0]);
 	}
 	if (cmd != NULL)
 		free(cmd);
 
-	return errno;
+	return (ret);
 }
 
+/**
+ * print_prompt - print prompt in terminal mode only
+ * @is_term: if its in terminal mode
+ */
 void print_prompt(int is_term)
 {
 	if (is_term)
 		_printf("($) ");
 }
 
-void execute(char *full_path, char **args,char * name)
+/**
+ * execute - executes a single program in a new process
+ * @args: arguments to pass to the program
+ * @name: name of shell that is calling this fumction
+ */
+void execute(char **args, char *name)
 {
-	int i;
+	int i, is_path = 1;
 	pid_t pid;
-	extern char **environ;
+	char *full_path = NULL;
 
+	if ((args[0][0] == '.') || args[0][0] == '/' || args[0][0] == '~')
+		full_path = args[0];
+	else
+	{
+		full_path = getpath(args[0]);
+		is_path = 0;
+	}
 	if (full_path == NULL)
 	{
 		_printf("%s: %s: not found\n", name, args[0]);
@@ -60,14 +72,26 @@ void execute(char *full_path, char **args,char * name)
 	if (pid == 0)
 	{
 		execve(full_path, args, environ);
-		_printf("%s: %s: no such file or  directory\n",name, args[0]);
-		exit(-1);
+		print_exec_error(args[0], name, errno);
+		exit(0);
 	}
 	else
 	{
 		wait(&i);
 		if (args != NULL)
 			free_args(args);
-		free(full_path);
+		if (!is_path)
+			free(full_path);
 	}
+}
+
+/**
+ * print_exec_error - prints an error message
+ * @cmd: the comand that failed
+ * @name: the name of the shell that ran that command
+ * @err: error no coresponding to error
+ */
+void print_exec_error(char *cmd, char *name, int  err)
+{
+	_printf("error - %i\n", err);
 }

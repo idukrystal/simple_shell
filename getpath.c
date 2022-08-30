@@ -3,7 +3,7 @@
 char *getpath(char *cmd)
 {
 	int i, k = _strlen(cmd), l, m;
-	char *path = _getenv("PATH"), *buf, *check = NULL, **PATH;
+	char *path = *_getenv("PATH"), *buf, *check = NULL, **PATH;
 
 	buf = malloc(sizeof(char) * _strlen(path) + 1);
 	if (buf == NULL)
