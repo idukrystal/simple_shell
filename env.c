@@ -52,15 +52,31 @@ void _setenv(char *env, char *vne, int *eflag)
 }
 void _unsetenv(char *env, int *eflag)
 {
-	int i, j, index;
+	int i, j, k, index;
+	char **newenv;
 
 	index = _getindex(env);
 	if (index == -1)
 		return;
+	for (i = 0; environ[i]; ++i)
+		;
+	newenv = malloc(sizeof(*environ) * i);
+	newenv[i - 1] = NULL;
+	for (i = 0, j = 0; environ[j]; ++i, ++j)
+	{
+		if (j == index)
+			++j;
+		newenv[i] = malloc(sizeof(char) * _strlen(environ[j]) + 1);
+		for (k = 0; environ[j][k]; ++k)
+			newenv[i][k] = environ[j][k];
+		newenv[i][k] = '\0';
+	}
+	/*
 	if (*eflag == 1)
-		free(environ[index]);
-	for (; environ[index]; ++index)
-		environ[index] = environ[index + 1];
+		free_args(environ);
+		*/
+	environ = newenv;
+	/*error messages*/
 }
 /**
 void main(void)
