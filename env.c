@@ -26,7 +26,7 @@ void _setenv(char *env, char *vne, int *eflag)
 	if (old_val != NULL)
 	{
 		printf("%s ...\n", new_val);
-		free(*old_val);
+		//free(*old_val);
 		*old_val = new_val;
 		return;
 	}

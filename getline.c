@@ -6,7 +6,7 @@ int _getline(char **lineptr, size_t *n, FILE *stream)
 
 	while (flag == 0)
 	{
-		if (read(buf, 1, INT_MAX, stream) == -1)
+		if (read(buf, INT_MAX, stream) == -1)
 			return (-1);
 		for (i = 0; i < INT_MAX; ++i)
 		{
