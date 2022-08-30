@@ -8,6 +8,8 @@
 #include <sys/wait.h>
 #include <stddef.h>
 #include <errno.h>
+#include <dirent.h>
+#include <sys/types.h>
 
 char **_getenv(const char *name);
 int count_args(char *str, char del);
@@ -38,5 +40,6 @@ int _getindex(const char *name);
 void _unsetenv(char *env, int *eflag);
 int count(char **args);
 void print_exec_error(char *cmd, char *name, int  err);
+int ch_dir(char **cmd, char *);
 
 #endif /* main_h */

@@ -12,7 +12,7 @@ void _setenv(char *env, char *vne, int *eflag)
 	char **old_val = _getenv(env);
 	char *new_val;
 
-	printf("local 1\n");
+       
        new_val = malloc(sizeof(char) * (_strlen(env) + _strlen(vne) + 2));
        
        for (j = 0; env[j]; ++j)
@@ -25,7 +25,6 @@ void _setenv(char *env, char *vne, int *eflag)
 
 	if (old_val != NULL)
 	{
-		printf("%s ...\n", new_val);
 		//free(*old_val);
 		*old_val = new_val;
 		return;

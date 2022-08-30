@@ -26,8 +26,6 @@ int is_num(char *s)
 
 int run_built_in(char **cmd,char *name)
 {
-	char *str = NULL;
-	char *curr = NULL;
 	int i;
 
 	if (_strcmp(cmd[0], "exit") == 0)
@@ -46,35 +44,12 @@ int run_built_in(char **cmd,char *name)
 	}
 	if (_strcmp(cmd[0], "cd") == 0)
 	{
-		curr = getcwd(NULL, 0);
-	        if (cmd[1] == NULL)
-		{
-			str = getvar("HOME");
-			chdir(str);
-		}
-		else if (_strcmp(cmd[1], "-")  == 0)
-		{
-			str = getvar("OLDPWD");
-			printf("old - %s\n", str);
-			chdir(str);
-		}
-		else
-		{
-			str = cmd[1];
-			chdir(str);
-		}
-		if (str != NULL)
-		{
-			_setenv("PWD", str, &i);
-			_setenv("OLDPWD", curr, &i);
-			free(str);
-			free(curr);
-		}
-		return 1;
+		return ch_dir(cmd, name);
 	}
 	if (_strcmp(cmd[0], "setenv") == 0)
 	{
 		if (count(cmd) != 3)
+
 			_printf("usage : setenv VARIABLE VALUE\n");
 		else
 			_setenv(cmd[1], cmd[2], &i);

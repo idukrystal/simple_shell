@@ -27,6 +27,7 @@ int main(int ac, char **av)
 				continue;
 			break;
 		}
+		ret = 0;
 		execute(args, av[0]);
 	}
 	if (cmd != NULL)
@@ -93,5 +94,5 @@ void execute(char **args, char *name)
  */
 void print_exec_error(char *cmd, char *name, int  err)
 {
-	_printf("error - %i\n", err);
+	_printf("%s: %s: error - %i\n",name, cmd,  err);
 }
