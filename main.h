@@ -43,5 +43,6 @@ void print_exec_error(char *cmd, char *name, int  err);
 int ch_dir(char **cmd, char *);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 ssize_t  _getline (char **line, size_t *size);
+void _alias(void);
 
 #endif /* main_h */
