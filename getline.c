@@ -1,21 +1,59 @@
 #include "main.h"
-int _getline(char **lineptr, size_t *n, FILE *stream)
-{
-	char buf[INT_MAX];
-	int i, flag = 0, count = 0;
 
-	while (flag == 0)
+ssize_t  _getline (char **line, size_t *size)
+{
+	char tmp = 'z';
+	static char buff[BUFFSIZE];
+	static int no;
+	static int cursor;
+	int i = 0, j;
+
+	if (line == NULL)
+		return (-1);
+	if (*line == NULL)
 	{
-		if (read(buf, INT_MAX, stream) == -1)
-			return (-1);
-		for (i = 0; i < INT_MAX; ++i)
-		{
-			if (buf[i] == '\n' || buf[i] == EOF)
-			{
-				flag = 1;
-				break;
-			}
-		}
+		*size = 128;
+		*line = malloc(sizeof(**line) * (*size));
 	}
+	while (1)
+	{
+		if (no == 0)
+		{
+			j = read(STDIN_FILENO, buff, BUFFSIZE);
+			if (j == 0)
+				return (-1);
+		        
+			no = j;
+			cursor = 0;
+		}
+		while ((*line)[i - 1]  != '\n' && cursor < no)
+		{
+			if (i >= *size)
+			{
+				*line = _realloc(*line, *size, *size + 128);
+				*size += 128;
+			}
+			(*line)[i++] = buff[cursor++];
+	        }
+		if ((*line)[i - 1] == '\n')
+		{
+
+			(*line)[i] = '\0';
+			break;
+		}
+		no = 0;
+	}
+	return i;
+}
+/*int main()
+{
+	size_t  i = 3;
+	char *str = NULL;
+	_getline(&str, &i);
+	printf("%s\n", str);
+	_getline(&str, &i);
+	printf("%s\n", str);
+	free(str);
 }
 
+*/

@@ -3,13 +3,13 @@
 int main(int ac, char **av)
 {
 	char *cmd = NULL, *full_path, **args = NULL;
-	size_t max = 100;
+	size_t max = 0;
 	int ret  = 0, w = ac, is_atty = isatty(STDIN_FILENO);
 
 	while (1)
 	{
 		print_prompt(is_atty);
-		w = getline(&cmd, &max, stdin);
+		w = _getline(&cmd, &max);
 		if (w == -1)
 		{
 			if (is_atty)
@@ -20,6 +20,11 @@ int main(int ac, char **av)
 			continue;
 		cmd[w - 1] = (cmd[w - 1] == '\n') ? '\0' : cmd[w - 1];
 		args = extract_args(cmd, ' ', count_args(cmd, ' '));
+		if (args[0] == NULL)
+		{
+			free_args(args);
+			continue;
+		}
 		ret = (run_built_in(args, av[0]));
 		if (ret  != -1)
 		{
