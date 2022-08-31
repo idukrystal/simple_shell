@@ -2,7 +2,7 @@
 
 int main(int ac, char **av)
 {
-	char *cmd = NULL, *full_path, **args = NULL;
+	char *cmd = NULL, **args = NULL;
 	size_t max = 0;
 	int ret  = 0, w = ac, is_atty = isatty(STDIN_FILENO);
 

@@ -2,11 +2,10 @@
 
 ssize_t  _getline (char **line, size_t *size)
 {
-	char tmp = 'z';
 	static char buff[BUFFSIZE];
 	static int no;
 	static int cursor;
-	int i = 0, j;
+	size_t i = 0, j;
 
 	if (line == NULL)
 		return (-1);
