@@ -1,6 +1,6 @@
 #include "main.h"
 
-ssize_t  _getline (char **line, size_t *size)
+ssize_t  _getline (char **line, size_t *size, int fd)
 {
 	static char buff[BUFFSIZE];
 	static int no;
@@ -18,7 +18,7 @@ ssize_t  _getline (char **line, size_t *size)
 	{
 		if (no == 0)
 		{
-			j = read(STDIN_FILENO, buff, BUFFSIZE);
+			j = read(fd, buff, BUFFSIZE);
 			if (j == 0)
 				return (-1);
 		        

@@ -1,4 +1,5 @@
 #include "main.h"
+#include "chris.h"
 
 int main(int ac, char **av)
 {
@@ -9,7 +10,7 @@ int main(int ac, char **av)
 	while (1)
 	{
 		print_prompt(is_atty);
-		w = _getline(&cmd, &max);
+		w = _getline(&cmd, &max, STDIN_FILENO);
 		if (w == -1)
 		{
 			if (is_atty)
@@ -25,6 +26,7 @@ int main(int ac, char **av)
 			free_args(args);
 			continue;
 		}
+		args[0] = un_alias(args[0]);
 		ret = (run_built_in(args, av[0]));
 		if (ret  != -1)
 		{
@@ -38,6 +40,7 @@ int main(int ac, char **av)
 	if (cmd != NULL)
 		free(cmd);
 
+	free_alias(alias);
 	return (ret);
 }
 
@@ -100,4 +103,14 @@ void execute(char **args, char *name)
 void print_exec_error(char *cmd, char *name, int  err)
 {
 	_printf("%s: %s: error - %i\n",name, cmd,  err);
+}
+
+char *un_alias(char *cmd)
+{
+	alias_t *tmp = get_alias(cmd);
+
+	if (tmp == NULL)
+		return cmd;
+	free(cmd);
+	return (strclone(tmp->val));
 }

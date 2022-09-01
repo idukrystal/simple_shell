@@ -1,4 +1,5 @@
 #include "main.h"
+#include "chris.h"
 
 void printenv(void)
 {
@@ -54,6 +55,10 @@ int run_built_in(char **cmd,char *name)
 		else
 			_setenv(cmd[1], cmd[2], &i);
 		return 1;
+	}
+	if (_strcmp(cmd[0], "alias") == 0)
+	{
+		return run_alias(cmd, name);
 	}
 	return -1;
 }
