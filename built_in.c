@@ -1,4 +1,5 @@
 #include "main.h"
+#include "chris.h"
 
 /**
  * ch_dir - changes current working directory
@@ -47,4 +48,33 @@ int ch_dir(char **cmd, char *name)
 		free(curr);
 	}
 	return (i);
+}
+
+
+int  run_alias(char **args, char *name)
+{
+        alias_t *tmp;
+	int i = 1;
+
+        if (args[1] == NULL)
+                print_alias(alias, 0, name);
+        else
+        {
+		for(; args[i] != NULL; i++)
+		{
+                tmp = parse_alias(args[i]);
+                if (tmp  == NULL)
+		{
+			//mem_error();
+                        return (1);
+		}
+                if (tmp->val ==  NULL)
+                        print_alias(get_alias(tmp->name), 1, name);
+                else
+                        add_alias(tmp->name, tmp->val);
+
+                free_alias(tmp);
+		}
+        }
+	return 1;
 }

@@ -1,6 +1,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 #define BUFFSIZE 1024
+#define alias_location "./hsh_alias"
 #include <string.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -42,7 +43,7 @@ int count(char **args);
 void print_exec_error(char *cmd, char *name, int  err);
 int ch_dir(char **cmd, char *);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-ssize_t  _getline (char **line, size_t *size);
-void _alias(void);
+ssize_t  _getline (char **line, size_t *size, int fd);
+
 
 #endif /* main_h */
