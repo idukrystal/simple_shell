@@ -31,8 +31,10 @@ char *itoa(int a)
 	p = malloc(count + 1);
 	p[count] = '\0';
 	count--;
-	for (i = 0; count != 0; count--)
-		p[i] = (a / _pow(10, count)) % 10;
+	for (i = 0; count != -1; i++, count--)
+	{
+		p[i] = ((a / _pow(10, count)) % 10) + 48;
+	}
 	return (p);
 }
 void restruct(char **cmd, int i, int j, char *expand)
@@ -54,19 +56,20 @@ void restruct(char **cmd, int i, int j, char *expand)
 				for (; expand[o]; ++o, ++m)
 				{
 					new[m] = expand[o];
-					n = j + 1;
 				}
+					n = j + 1;
 			}
 			else
 			{
 				for (o = 0; expand[o]; ++o, ++m)
 				{
 					new[m] = expand[o];
-					n = j + 1;
 				}
+					n = j + 1;
 			}
 		}
 		new[m] = (*cmd)[n];
+		printf("%c\n", new[m]);
 	}
 	new[m] = '\0';
 	free(*cmd);
@@ -77,7 +80,7 @@ void dollar(char **cmd, int *exitstatus)
 	int i, j, k = 0;
 	char *expand, *p;
 
-	for (i = 0, j = 1; (*cmd)[i] && (*cmd)[j]; ++i, ++j)
+	for (i = 0, j = 1; (*cmd)[j]; ++i, ++j)
 	{
 		if ((*cmd)[i] == '$')
 		{
@@ -116,9 +119,11 @@ void main(void)
 	char *cmd = malloc(10);
 	int i = 12;
 	cmd[0] = '$';
-	cmd[1] = '$';
-	cmd[2] = '$';
-	cmd[3] = '\0';
+	cmd[1] = 'P';
+	cmd[2] = 'A';
+	cmd[3] = 'T';
+	cmd[4] = 'H';
+	cmd[5] = '\0';
 	dollar(&cmd, &i);
 	printf("%s\n", cmd);
 	free(cmd);
