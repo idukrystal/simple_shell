@@ -137,10 +137,10 @@ void main(void)
 	char *cmd = malloc(10);
 	int i = 12;
 	cmd[0] = '$';
-	cmd[1] = '?';
+	cmd[1] = '$';
 	cmd[2] = '$';
 	cmd[3] = '$';
-	cmd[4] = '$';
+	cmd[4] = '?';
 	cmd[5] = '\0';
 	dollar(&cmd, &i);
 	printf("%s\n", cmd);
