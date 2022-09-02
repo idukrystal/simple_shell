@@ -37,7 +37,7 @@ char *itoa(int a)
 	p = malloc(count + 1);
 	p[count] = '\0';
 	count--;
-	for (i = 0; count != -1; i++, count--)
+	for (i = 0; count >= 0; i++, count--)
 	{
 		p[i] = ((a / _pow(10, count)) % 10) + 48;
 	}
