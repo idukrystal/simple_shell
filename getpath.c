@@ -1,5 +1,10 @@
 #include "main.h"
 
+/**
+ * getpath - gets environ path
+ * @cmd: string to be searched
+ * Return: pointer to environ or null if failed
+ */
 char *getpath(char *cmd)
 {
 	int i, k = _strlen(cmd), l, m;

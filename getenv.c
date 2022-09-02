@@ -1,7 +1,11 @@
 #include "main.h"
+/**
+ * _getenv - gets address of environment
+ * @name: name of environ to be checked
+ * Return: address if availble, null otherwise
+ */
 char **_getenv(const char *name)
 {
-	extern char **environ;
 	int i = -1, j;
 
 	while (environ[++i] != NULL)
@@ -9,7 +13,7 @@ char **_getenv(const char *name)
 		j = 0;
 		if (environ[i][j] == name[j])
 		{
-			while(environ[i][j] == name[j])
+			while (environ[i][j] == name[j])
 			{
 				j++;
 			}
@@ -21,9 +25,13 @@ char **_getenv(const char *name)
 	}
 	return (NULL);
 }
+/**
+ * _getindex - gets index of environment
+ * @name: name of environ to be checked
+ * Return: index if availble, 0 otherwise
+ */
 int _getindex(const char *name)
 {
-	extern char **environ;
 	int i = -1, j;
 
 	while (environ[++i] != NULL)
@@ -31,7 +39,7 @@ int _getindex(const char *name)
 		j = 0;
 		if (environ[i][j] == name[j])
 		{
-			while(environ[i][j] == name[j])
+			while (environ[i][j] == name[j])
 			{
 				j++;
 			}
@@ -43,6 +51,11 @@ int _getindex(const char *name)
 	}
 	return (-1);
 }
+/**
+ * envious - gets pointer to environment
+ * @name: name of environ to be checked
+ * Return: pointer if availble, NULL otherwise
+ */
 char *envious(const char *name)
 {
 	int i = -1, j;
@@ -52,7 +65,7 @@ char *envious(const char *name)
 		j = 0;
 		if (environ[i][j] == name[j])
 		{
-			while(environ[i][j] == name[j])
+			while (environ[i][j] == name[j])
 			{
 				j++;
 			}

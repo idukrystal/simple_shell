@@ -1,7 +1,14 @@
 #include "main.h"
 #include "chris.h"
 
-ssize_t  _getline (char **line, size_t *size, int fd)
+/**
+ * _getline - gets line
+ * @line: pointer to contain read string
+ * @size: numberof chars printed
+ * @fd: fild descriptor of source
+ * Return: no of chars read. 0 if empty, -1 if failed
+ */
+ssize_t  _getline(char **line, size_t *size, int fd)
 {
 	static char buff[BUFFSIZE];
 	static int no, cursor;
@@ -33,7 +40,7 @@ ssize_t  _getline (char **line, size_t *size, int fd)
 			(*line)[i] = buff[cursor++];
 			if ((*line)[i++]  == '\n' || !(cursor < no))
 				break;
-	        }
+		}
 		no = (no == cursor) ? 0 : no;
 		if ((*line)[i - 1] == '\n')
 		{
@@ -42,17 +49,5 @@ ssize_t  _getline (char **line, size_t *size, int fd)
 			break;
 		}
 	}
-	return i;
+	return (i);
 }
-/*
-int main()
-{
-	size_t  i = 3;
-	char *str = NULL;
-	_getline(&str, &i, STDIN_FILENO);
-	printf("%s\n", str);
-	_getline(&str, &i, STDIN_FILENO);
-	printf("%s\n", str);
-	free(str);
-	}*/
-
