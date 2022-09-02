@@ -1,6 +1,6 @@
 #ifndef MAIN_H
 #define MAIN_H
-#define BUFFSIZE 1024
+#define BUFFSIZE 5
 #define alias_location "./hsh_alias"
 #include <string.h>
 #include <unistd.h>
