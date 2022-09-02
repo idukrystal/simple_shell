@@ -11,6 +11,9 @@
 #include <errno.h>
 #include <dirent.h>
 #include <sys/types.h>
+#include <stdarg.h>
+
+extern char **environ;
 
 char **_getenv(const char *name);
 int count_args(char *str, char del);
