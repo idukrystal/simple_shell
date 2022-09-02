@@ -32,11 +32,13 @@ int run_built_in(char **cmd,char *name)
 	if (_strcmp(cmd[0], "exit") == 0)
 	{
 		if (cmd [1] == NULL)
-			return (0);
-		if (is_num(cmd[1]))
-			return (_atoi(cmd[1]));
-		_printf("%s: %s: invalid number %s", name,cmd[0], cmd[1]);
-		return 1;
+			i = 0;
+		else if (is_num(cmd[1]))
+			i = (_atoi(cmd[1]));
+		else
+			_printf("%s: %s: invalid number %s", name,cmd[0], cmd[1]);
+		free_args(cmd);
+		return i;
    	}
 	if (_strcmp(cmd[0], "env") == 0)
 	{
