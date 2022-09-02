@@ -1,4 +1,5 @@
 #include "main.h"
+extern char **environ;
 /**
  * _pow - finds exponent of base
  * @base: number to be exp
@@ -43,33 +44,30 @@ void restruct(char **cmd, int i, int j, char *expand)
 	char  *new;
 
 	new = malloc(1024);
-	for (m = 0, n = 0; cmd[n]; ++m, ++n)
+	for (m = 0, n = 0; (*cmd)[n]; ++m, ++n)
 	{
 		if (m == i)
 		{
-			if (getenv(expand) != NULL)
+			if (envious(expand) != NULL)
 			{
-				expand = getenv(expand);
+				expand = envious(expand);
 				for (o = 0; expand[o] != '='; ++o)
 					;
 				o++;
 				for (; expand[o]; ++o, ++m)
-				{
 					new[m] = expand[o];
-				}
-					n = j + 1;
+				n = j + 1;
 			}
 			else
 			{
 				for (o = 0; expand[o]; ++o, ++m)
-				{
 					new[m] = expand[o];
-				}
-					n = j + 1;
+				n = j + 1;
 			}
 		}
+		if ((*cmd)[n] == '\0')
+			break;
 		new[m] = (*cmd)[n];
-		printf("%c\n", new[m]);
 	}
 	new[m] = '\0';
 	free(*cmd);
@@ -101,31 +99,31 @@ void dollar(char **cmd, int *exitstatus)
 				expand = malloc(sizeof(char) * 100);
 				while (k < 100)
 					expand[k++] = '\0';
-				for (k = 0; getenv(expand) == NULL; ++k)
+				for (k = 0; envious(expand) == NULL; ++k)
 				{
-					if ((*cmd)[i + k] == '$' || (*cmd)[i + k] == '\0')
+					if ((*cmd)[i + k + 1] == '$' || (*cmd)[i + k + 1] == '\0')
 						break;
-					expand[k] = (*cmd)[i + k];
+					expand[k] = (*cmd)[i + k + 1];
 				}
-				if (getenv(expand) != NULL)
+				if (envious(expand) != NULL)
 					restruct(cmd, i, i + k, expand);
 				free(expand);
 			}
 		}
 	}
 }
-/**
+
 void main(void)
 {
 	char *cmd = malloc(10);
 	int i = 12;
 	cmd[0] = '$';
-	cmd[1] = 'P';
-	cmd[2] = 'A';
-	cmd[3] = 'T';
-	cmd[4] = 'H';
+	cmd[1] = '?';
+	cmd[2] = '$';
+	cmd[3] = '$';
+	cmd[4] = '$';
 	cmd[5] = '\0';
 	dollar(&cmd, &i);
 	printf("%s\n", cmd);
 	free(cmd);
-	}**/
+	}
