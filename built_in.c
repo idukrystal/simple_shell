@@ -71,7 +71,9 @@ int  run_alias(char **args, char *name)
                 if (tmp->val ==  NULL)
                         print_alias(get_alias(tmp->name), 1, name);
                 else
+		{
                         add_alias(tmp->name, tmp->val);
+		}
 
                 free_alias(tmp);
 		}

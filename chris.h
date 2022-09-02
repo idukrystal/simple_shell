@@ -12,7 +12,7 @@ alias_t;
 extern alias_t *alias;
 
 /* simple.c */
-char *un_alias(char *cmd);
+char **un_alias(char **cmd);
 
 /* built_in.c */
 int  run_alias(char **args, char *name);

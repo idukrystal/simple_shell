@@ -26,7 +26,7 @@ int main(int ac, char **av)
 			free_args(args);
 			continue;
 		}
-		args[0] = un_alias(args[0]);
+		args = un_alias(args);
 		ret = (run_built_in(args, av[0]));
 		if (ret  != -1)
 		{
@@ -107,12 +107,30 @@ void print_exec_error(char *cmd, char *name, int  err)
 	_printf("%s: %s: error - %i\n",name, cmd,  err);
 }
 
-char *un_alias(char *cmd)
+char **un_alias(char **cmd)
 {
-	alias_t *tmp = get_alias(cmd);
+	char **args, **new;
+	int i, j , tot;
+	alias_t *tmp = get_alias(cmd[0]);
 
 	if (tmp == NULL)
 		return cmd;
+	args = extract_args(tmp->val, ' ', count_args(tmp->val, ' '));
+
+	tot = count(args) + count(cmd);
+	new = malloc(sizeof(*cmd) * tot);
+
+	for (i = 0; args[i] != NULL; i++)
+	{
+		new[i] = args[i];
+	}
+	for (j = 1; cmd[j] != NULL; j++, i++)
+        {
+                new[i] = cmd[j];
+        }
+	cmd[j] = NULL;
+	free(cmd[0]);
 	free(cmd);
-	return (strclone(tmp->val));
+	free(args);
+	return (new);
 }

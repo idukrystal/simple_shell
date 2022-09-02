@@ -60,7 +60,6 @@ void  free_alias(alias_t *list)
 
 	for (tmp = list; tmp != NULL; tmp = tmp->next)
         {
-		printf("%i\n", i++);
 		if (tmp->val != NULL)
 			free(tmp->val);
 
