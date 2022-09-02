@@ -39,7 +39,7 @@ char *getpath(char *cmd)
 		free(check);
 		check = NULL;
 	}
-        if (PATH != NULL)
+	if (PATH != NULL)
 		free_args(PATH);
 	free(buf);
 	return (check);

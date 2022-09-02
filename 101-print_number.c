@@ -34,27 +34,31 @@ unsigned int print_number(int n)
 		_putchar(((m / count) % 10) + 48);
 		tots++;
 	}
-	return tots;
+	return (tots);
 }
 
+/**
+ * print_u_number - prints u number
+ * @n: number to be printed
+ * Return: unsigned int
+ */
 unsigned int print_u_number(unsigned int n)
 {
 	unsigned int m, d, count, tots = 0;
 
 	m = n;
 	d = m;
-        count = 1;
+	count = 1;
 
-        while (d > 9)
-        {
-                d /= 10;
-                count *= 10;
-        }
-
-        for (; count >= 1; count /= 10)
-        {
-                _putchar(((m / count) % 10) + 48);
-                tots++;
-        }
-        return tots;
+	while (d > 9)
+	{
+		d /= 10;
+		count *= 10;
+	}
+	for (; count >= 1; count /= 10)
+	{
+		_putchar(((m / count) % 10) + 48);
+		tots++;
+	}
+	return (tots);
 }
