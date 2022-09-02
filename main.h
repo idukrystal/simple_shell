@@ -51,5 +51,6 @@ void restruct(char **cmd, int i, int j, char *expand);
 unsigned int _pow(int base, unsigned int exp);
 char *itoa(int a);
 ssize_t  _getline (char **line, size_t *size, int fd);
+char *envious(const char *name);
 
 #endif /* main_h */
