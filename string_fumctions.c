@@ -14,3 +14,18 @@ char *strclone(char *str)
 	clone[i] = '\0';
 	return (clone);
 }
+int _strlen(const char *p)
+{
+        int i;
+
+        for (i = 0; p[i]; ++i)
+                ;
+        return (i);
+}
+void _strcpy(char *from, char *to)
+{
+        int i;
+
+        for (i = 0; from[i]; ++i)
+                to[i] = from[i];
+}

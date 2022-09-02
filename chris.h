@@ -29,4 +29,6 @@ char *strclone(char *str);
 
 void *_malloc (unsigned long);
 
+char still_quoted(char new_q, char old_q);
+
 #endif
