@@ -75,23 +75,25 @@ void execute(char **args, char *name)
 	if (full_path == NULL)
 	{
 		_printf("%s: %s: not found\n", name, args[0]);
-		return;
-	}
-	pid = fork();
-	if (pid == 0)
-	{
-		execve(full_path, args, environ);
-		print_exec_error(args[0], name, errno);
-		exit(0);
 	}
 	else
 	{
-		wait(&i);
-		if (args != NULL)
-			free_args(args);
-		if (!is_path)
-			free(full_path);
+		pid = fork();
+		if (pid == 0)
+		{
+			execve(full_path, args, environ);
+			print_exec_error(args[0], name, errno);
+			exit(0);
+		}
+		else
+		{
+			wait(&i);
+		}
 	}
+	if (args != NULL)
+		free_args(args);
+	if (!is_path)
+		free(full_path);
 }
 
 /**

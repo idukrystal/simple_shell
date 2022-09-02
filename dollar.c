@@ -114,6 +114,7 @@ void dollar(char **cmd, int *exitstatus)
 		}
 	}
 }
+/**
 void main(void)
 {
 	char *cmd = malloc(10);
@@ -127,4 +128,4 @@ void main(void)
 	dollar(&cmd, &i);
 	printf("%s\n", cmd);
 	free(cmd);
-}
+	}**/

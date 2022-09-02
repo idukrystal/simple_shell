@@ -32,9 +32,9 @@ char *getpath(char *cmd)
 	if (access(check, X_OK) != 0)
 	{
 		free(check);
-		return (NULL);
+		check = NULL;
 	}
-	if (PATH != NULL)
+        if (PATH != NULL)
 		free_args(PATH);
 	free(buf);
 	return (check);
