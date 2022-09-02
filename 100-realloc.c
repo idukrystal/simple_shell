@@ -30,23 +30,28 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 		*(relloc + i) = clone[i];
 	}
 	for (; i < new_size; i++)
-        {
-                *(relloc + i) = '\0';
-        }
+	{
+		*(relloc + i) = '\0';
+	}
 	free(ptr);
-return (relloc);
+	return (relloc);
 }
 
-void *_malloc (unsigned long  size)
+/**
+ * _malloc - mallocs
+ * @size: size of space to malloc
+ * Return: void
+ */
+void *_malloc(unsigned long size)
 {
 	char  *new = malloc(size);
 	int i;
 
 	if (new == NULL)
-		return NULL;
+		return (NULL);
 	for (i = 0; i < size; i++)
 	{
 		*(new + i) = '\0';
 	}
-	return new;
+	return (new);
 }
