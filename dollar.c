@@ -19,6 +19,11 @@ unsigned int _pow(int base, unsigned int exp)
 		return (1);
 	return (result);
 }
+/**
+ * itoa - integer top string
+ * @a: int to be converted
+ * Return: pointer to string
+ */
 char *itoa(int a)
 {
 	int i = a, count = 0;
@@ -38,6 +43,14 @@ char *itoa(int a)
 	}
 	return (p);
 }
+/**
+ * restruct - expands command
+ * @cmd: address of command string
+ * @i: index of expansion
+ * @j: index of expansion end
+ * @expand: expanson value
+ * Return: nill
+ */
 void restruct(char **cmd, int i, int j, char *expand)
 {
 	int m, n, o;
@@ -73,6 +86,12 @@ void restruct(char **cmd, int i, int j, char *expand)
 	free(*cmd);
 	*cmd = new;
 }
+/**
+ * dollar - calls restruct when possible
+ * @cmd: address of command
+ * @exitstatus: pointer to exitstatus
+ * Return: nill
+ */
 void dollar(char **cmd, int *exitstatus)
 {
 	int i, j, k = 0;
@@ -112,7 +131,7 @@ void dollar(char **cmd, int *exitstatus)
 		}
 	}
 }
-
+/*
 void main(void)
 {
 	char *cmd = malloc(10);
@@ -127,3 +146,4 @@ void main(void)
 	printf("%s\n", cmd);
 	free(cmd);
 	}
+	*/
