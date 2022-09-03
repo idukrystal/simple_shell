@@ -1,5 +1,10 @@
 #include "main.h"
 
+/**
+ * _printf - alt version of printf
+ * @format: string
+ * Return: number of chars printed
+ */
 int _printf(const char *format, ...)
 {
 	unsigned int len = _strlen(format), i, tot = 0;
@@ -14,7 +19,7 @@ int _printf(const char *format, ...)
 
 		if (tmp == '%')
 		{
-			switch(format[++i])
+			switch (format[++i])
 			{
 			case 'c':
 				tmp = va_arg(args, int);
@@ -32,5 +37,5 @@ int _printf(const char *format, ...)
 		tot += write(1, &tmp, 1);
 	}
 	va_end(args);
-	return tot;
+	return (tot);
 }

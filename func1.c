@@ -66,7 +66,6 @@ int run_built_in(char **cmd, char *name)
 	if (_strcmp(cmd[0], "setenv") == 0)
 	{
 		if (count(cmd) != 3)
-
 			_printf("usage : setenv VARIABLE VALUE\n");
 		else
 			_setenv(cmd[1], cmd[2], &i);
@@ -75,7 +74,7 @@ int run_built_in(char **cmd, char *name)
 	if (_strcmp(cmd[0], "unsetenv") == 0)
 	{
 		_unsetenv(cmd[1], &i);
-		return 1;
+		return (1);
 	}
 	if (_strcmp(cmd[0], "alias") == 0)
 	{
