@@ -2,7 +2,12 @@
 #include "main.h"
 
 alias_t *alias = NULL;
-
+/**
+ * add_alias - adds alias
+ * @name: name fo alias
+ * @value: value of alias
+ * Return: 1 if successful, -1 otherwise
+ */
 int add_alias(char *name, char *value)
 {
 	alias_t *tmp = get_alias(name);
@@ -39,13 +44,18 @@ int add_alias(char *name, char *value)
 	return (1);
 }
 
+/**
+ * get_alias - gets alias and its value
+ * @name: name of alias to be found
+ * Return: pointer to alias struct or null if non_existent
+ */
 alias_t *get_alias(char *name)
 {
 	alias_t *tmp;
 
 	for (tmp = alias; tmp != NULL; tmp = tmp->next)
 	{
-		if (_strcmp(tmp->name, name) == 0 )
+		if (_strcmp(tmp->name, name) == 0)
 		{
 			return (tmp);
 		}
@@ -53,13 +63,18 @@ alias_t *get_alias(char *name)
 	return (NULL);
 }
 
+/**
+ * free_alias - frees alias
+ * @list: pointer to head of alias
+ * Return: void
+ */
 void  free_alias(alias_t *list)
 {
 	alias_t *tmp;
 	int i = 0;
 
 	for (tmp = list; tmp != NULL; tmp = tmp->next)
-        {
+	{
 		if (tmp->val != NULL)
 			free(tmp->val);
 
@@ -85,7 +100,7 @@ void print_alias(alias_t *list, int s, char *name)
 	for (tmp = list; tmp != NULL; tmp = tmp->next)
 	{
 		_printf("alias %s=\'%s\'\n", tmp->name, tmp->val);
-        }
+	}
 }
 
 alias_t  *parse_alias(char *str)
@@ -104,7 +119,7 @@ alias_t  *parse_alias(char *str)
 	if (name == NULL)
 	{
 		free(tmp);
-		return NULL;
+		return (NULL);
 	}
 
 	for (j = 0; j <= i; j++)
@@ -115,7 +130,7 @@ alias_t  *parse_alias(char *str)
 		tmp->val = NULL;
 		return (tmp);
 	}
-        tmp->name[i] = '\0';
+	tmp->name[i] = '\0';
 
 	while (str[j] != '\0')
 		j++;
@@ -126,7 +141,7 @@ alias_t  *parse_alias(char *str)
 		free(tmp);
 		return (NULL);
 	}
-	for(k = ++i; k <= j; k++)
+	for (k = ++i; k <= j; k++)
 		val[k - i] = str[k];
 	tmp->val = val;
 	return (tmp);
