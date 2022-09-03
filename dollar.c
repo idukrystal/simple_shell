@@ -1,5 +1,5 @@
 #include "main.h"
-extern char **environ;
+
 /**
  * _pow - finds exponent of base
  * @base: number to be exp
@@ -131,6 +131,7 @@ void dollar(char **cmd, int *exitstatus)
 		}
 	}
 }
+
 /*
 void main(void)
 {
@@ -145,5 +146,5 @@ void main(void)
 	dollar(&cmd, &i);
 	printf("%s\n", cmd);
 	free(cmd);
-	}
-	*/
+}
+*/

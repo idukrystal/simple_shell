@@ -128,6 +128,8 @@ alias_t  *parse_alias(char *str)
 	}
 	for(k = ++i; k <= j; k++)
 		val[k - i] = str[k];
+
+	unquote(&val);
 	tmp->val = val;
 	return (tmp);
 }

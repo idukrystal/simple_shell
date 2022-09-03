@@ -63,7 +63,7 @@ void _setenv(char *env, char *vne, int *eflag)
  */
 void _unsetenv(char *env, int *eflag)
 {
-	int i, j, k, index;
+	int i, j, k, index, end;
 	char **newenv;
 
 	index = _getindex(env);
@@ -71,12 +71,15 @@ void _unsetenv(char *env, int *eflag)
 		return;
 	for (i = 0; environ[i]; ++i)
 		;
+	end = i - 1;
 	newenv = malloc(sizeof(*environ) * i);
-	newenv[i - 1] = NULL;
+	newenv[end] = NULL;
 	for (i = 0, j = 0; environ[j]; ++i, ++j)
 	{
 		if (j == index)
 			++j;
+		if (j >= end)
+			break;
 		newenv[i] = malloc(sizeof(char) * _strlen(environ[j]) + 1);
 		for (k = 0; environ[j][k]; ++k)
 			newenv[i][k] = environ[j][k];
@@ -85,5 +88,5 @@ void _unsetenv(char *env, int *eflag)
 	if (*eflag == 1)
 		free_args(environ);
 	environ = newenv;
-	/*error messages*/
+	/* error messages */
 }

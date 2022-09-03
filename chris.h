@@ -26,6 +26,7 @@ void print_alias(alias_t *list, int, char *);
 
 /* string_function.c */
 char *strclone(char *str);
+char *unquote(char **str);
 
 void *_malloc (unsigned long);
 
