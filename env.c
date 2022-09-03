@@ -1,10 +1,21 @@
 #include "main.h"
-extern char **environ;
+/**
+ * _putchar - puts char
+ * @c: char
+ * Return: 1
+ */
 int  _putchar(char c)
 {
 	return (write(1, &c, 1));
 }
 
+/**
+ * _setenv - sets environ variable
+ * @env: variable
+ * @vne: value
+ * @eflag: malloc checker
+ * Return: nill
+ */
 void _setenv(char *env, char *vne, int *eflag)
 {
 	int i, j, k;
@@ -12,20 +23,17 @@ void _setenv(char *env, char *vne, int *eflag)
 	char **old_val = _getenv(env);
 	char *new_val;
 
-       
-       new_val = malloc(sizeof(char) * (_strlen(env) + _strlen(vne) + 2));
-       
-       for (j = 0; env[j]; ++j)
-                new_val[j]  = env[j];
-        new_val[j++] = '=';
-        for (k = 0; vne[k]; ++k, ++j)
-                new_val[j] = vne[k];
-	
-        new_val[j] = '\0';
+	new_val = malloc(sizeof(char) * (_strlen(env) + _strlen(vne) + 2));
+	for (j = 0; env[j]; ++j)
+		new_val[j]  = env[j];
+	new_val[j++] = '=';
+	for (k = 0; vne[k]; ++k, ++j)
+		new_val[j] = vne[k];
+	new_val[j] = '\0';
 
 	if (old_val != NULL)
 	{
-		//free(*old_val);
+		free(*old_val);
 		*old_val = new_val;
 		return;
 	}
@@ -41,14 +49,18 @@ void _setenv(char *env, char *vne, int *eflag)
 			newenv[i][j] = environ[i][j];
 		newenv[i][j] = '\0';
 	}
-	/*
 	if (*eflag == 1)
 		free_args(environ);
-		*/
 	/* remember to add error messages*/
 	*eflag = 1;
 	environ = newenv;
 }
+/**
+ * _unsetenv - unsets env
+ * @env: env variable name
+ * @eflag: malloc checker
+ * Return: nul
+ */
 void _unsetenv(char *env, int *eflag)
 {
 	int i, j, k, index;
@@ -70,17 +82,8 @@ void _unsetenv(char *env, int *eflag)
 			newenv[i][k] = environ[j][k];
 		newenv[i][k] = '\0';
 	}
-	/*
 	if (*eflag == 1)
 		free_args(environ);
-		*/
 	environ = newenv;
 	/*error messages*/
 }
-/**
-void main(void)
-{
-	int m = 0;
-	_unsetenv("TERM", &m);
-	printenv();
-	}**/
