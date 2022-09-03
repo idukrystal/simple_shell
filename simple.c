@@ -40,7 +40,7 @@ int main(int ac, char **av)
 	if (cmd != NULL)
 		free(cmd);
 
-	free_alias(alias);
+	free_alias(*(alias()));
 	return (ret);
 }
 

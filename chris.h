@@ -1,6 +1,12 @@
 #ifndef CHRIS_H
 #define CHRIS_H
 
+/**
+ * struct alias_s - represents a single alias
+ * @name: name of of alias;
+ * @val: value of alias
+ * @next: for use in a linked list
+ */
 typedef struct alias_s
 {
 	char *name;
@@ -8,8 +14,6 @@ typedef struct alias_s
 	struct alias_s *next;
 }
 alias_t;
-
-extern alias_t *alias;
 
 /* simple.c */
 char **un_alias(char **cmd);
@@ -28,8 +32,11 @@ void print_alias(alias_t *list, int, char *);
 char *strclone(char *str);
 char *unquote(char **str);
 
-void *_malloc (unsigned long);
+/* alloc.c */
+void *_malloc(unsigned long);
 
 char still_quoted(char new_q, char old_q);
 
+/* system.c */
+alias_t **alias();
 #endif

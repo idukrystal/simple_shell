@@ -50,33 +50,37 @@ int ch_dir(char **cmd, char *name)
 	return (i);
 }
 
-
+/**
+ * run_alias - runs the alias buitin
+ * @args: arguments passed
+ * @name: name of calling shell
+ * Return: erro indicator
+ */
 int  run_alias(char **args, char *name)
 {
-        alias_t *tmp;
+	alias_t *tmp;
 	int i = 1;
 
-        if (args[1] == NULL)
-                print_alias(alias, 0, name);
-        else
-        {
-		for(; args[i] != NULL; i++)
-		{
-                tmp = parse_alias(args[i]);
-                if (tmp  == NULL)
-		{
-			//mem_error();
-                        return (1);
-		}
-                if (tmp->val ==  NULL)
-                        print_alias(get_alias(tmp->name), 1, name);
-                else
-		{
-                        add_alias(tmp->name, tmp->val);
-		}
+	if (args[1] == NULL)
+		print_alias(*(alias()), 0, name);
 
-                free_alias(tmp);
+	else
+	{
+		for (; args[i] != NULL; i++)
+		{
+			tmp = parse_alias(args[i]);
+			if (tmp  == NULL)
+			{
+				return (1);
+			}
+			if (tmp->val ==  NULL)
+				print_alias(get_alias(tmp->name), 1, name);
+			else
+			{
+				add_alias(tmp->name, tmp->val);
+			}
+			free_alias(tmp);
 		}
-        }
-	return 1;
+	}
+	return (1);
 }

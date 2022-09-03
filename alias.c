@@ -1,7 +1,6 @@
 #include "chris.h"
 #include "main.h"
 
-alias_t *alias = NULL;
 /**
  * add_alias - adds alias
  * @name: name fo alias
@@ -39,8 +38,8 @@ int add_alias(char *name, char *value)
 	}
 	tmp->name = nam;
 	tmp->val = val;
-	tmp->next = alias;
-	alias = tmp;
+	tmp->next = *(alias());
+	*(alias()) = tmp;
 	return (1);
 }
 
@@ -53,7 +52,7 @@ alias_t *get_alias(char *name)
 {
 	alias_t *tmp;
 
-	for (tmp = alias; tmp != NULL; tmp = tmp->next)
+	for (tmp = *(alias()); tmp != NULL; tmp = tmp->next)
 	{
 		if (_strcmp(tmp->name, name) == 0)
 		{
@@ -84,6 +83,12 @@ void  free_alias(alias_t *list)
 	}
 }
 
+/**
+ * print_alias - prints a single or all aliases
+ * @s: single mode
+ * @list: alias or group of alias to print
+ * @name: name of calling shell
+ */
 void print_alias(alias_t *list, int s, char *name)
 {
 	alias_t *tmp;
@@ -103,6 +108,11 @@ void print_alias(alias_t *list, int s, char *name)
 	}
 }
 
+/**
+ * parse_alias - generates an alias from a a text
+ * @str: the string
+ * Return: an alias with values generated from the text
+ */
 alias_t  *parse_alias(char *str)
 {
 	alias_t *tmp = malloc(sizeof(*tmp));
@@ -116,12 +126,6 @@ alias_t  *parse_alias(char *str)
 		i++;
 	name = malloc(sizeof(*name) * (i + 1));
 
-	if (name == NULL)
-	{
-		free(tmp);
-		return (NULL);
-	}
-
 	for (j = 0; j <= i; j++)
 		name[j] = str[j];
 	tmp->name = name;
@@ -131,7 +135,6 @@ alias_t  *parse_alias(char *str)
 		return (tmp);
 	}
 	tmp->name[i] = '\0';
-
 	while (str[j] != '\0')
 		j++;
 	val  = malloc(sizeof(*name) * (j - i));
@@ -143,7 +146,6 @@ alias_t  *parse_alias(char *str)
 	}
 	for (k = ++i; k <= j; k++)
 		val[k - i] = str[k];
-
 	unquote(&val);
 	tmp->val = val;
 	return (tmp);

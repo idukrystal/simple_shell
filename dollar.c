@@ -132,7 +132,7 @@ void dollar(char **cmd, int *exitstatus)
 	}
 }
 
-/*
+/**
 void main(void)
 {
 	char *cmd = malloc(10);

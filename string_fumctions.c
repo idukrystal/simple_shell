@@ -1,12 +1,18 @@
 #include "main.h"
 
+/**
+ * strclone - makes a copy of a string
+ * @str: the string;
+ * Return: a copy of str
+ */
 char *strclone(char *str)
 {
 	int i = 0;
 	char *clone = malloc(sizeof(*str) * (_strlen(str) + 1));
+
 	if (clone == NULL)
-		return NULL;
-	while(str[i] != '\0')
+		return (NULL);
+	while (str[i] != '\0')
 	{
 		clone[i] = str[i];
 		i++;
@@ -14,38 +20,56 @@ char *strclone(char *str)
 	clone[i] = '\0';
 	return (clone);
 }
+
+/**
+ * _strlen - computes the length of a string
+ * @p: the string
+ * Return: the length of p
+ */
 int _strlen(const char *p)
 {
-        int i;
+	int i;
 
-        for (i = 0; p[i]; ++i)
-                ;
-        return (i);
+	for (i = 0; p[i]; ++i)
+		;
+
+	return (i);
 }
+
+/**
+ * _strcpy - copies the content of one string into another
+ * @from: string to copy from
+ * @to: string to copy to
+ */
 void _strcpy(char *from, char *to)
 {
-        int i;
+	int i;
 
-        for (i = 0; from[i]; ++i)
-                to[i] = from[i];
+	for (i = 0; from[i]; ++i)
+		to[i] = from[i];
 }
 
+/**
+ * unquote - unquotes a quated string
+ * @str: pointer to string
+ * Return: modified string
+ */
 char *unquote(char **str)
 {
 	int len = _strlen(*str), i, j;
 	char *tmp;
 
 	if ((*str)[0] != '\'' && (*str)[0] != '\"')
-		return *str;
+		return (*str);
 	if ((*str)[len - 1] != '\'' && (*str)[len - 1] != '\"')
-		return *str;
+		return (*str);
 	if ((*str)[0] != (*str)[len - 1])
-		return *str;
+		return (*str);
 
 	tmp = malloc(sizeof(*tmp) * (len - 2));
 
 	if (tmp == NULL)
-		return *str;
+		return (*str);
 
 	for (i = 1, j = 0; i < (len - 1); i++, j++)
 		tmp[j] = (*str)[i];
@@ -53,5 +77,5 @@ char *unquote(char **str)
 
 	free(*str);
 	*str = tmp;
-	return *str;
+	return (*str);
 }
