@@ -58,6 +58,11 @@ int run_built_in(char **cmd,char *name)
 			_setenv(cmd[1], cmd[2], &i);
 		return 1;
 	}
+	if (_strcmp(cmd[0], "unsetenv") == 0)
+	{
+		_unsetenv(cmd[1], &i);
+		return 1;
+	}
 	if (_strcmp(cmd[0], "alias") == 0)
 	{
 		return run_alias(cmd, name);
