@@ -32,7 +32,6 @@ int main(int ac, char **av)
 			execute(args, av[0]);
 		if (info.err)
 			_printf("%s: %s: %s\n", av[0], args[0], info.err_msg);
-		printf("end %i\n", info.end);
 		if (info.end)
 			break;
 		reset(&info);
@@ -66,14 +65,11 @@ void execute(char **args, char *name)
 	pid_t pid;
 	char *full_path = NULL;
 
-	printf("%p %s\n", args[0], full_path);
 	if ((args[0][0] == '.') || args[0][0] == '/' || args[0][0] == '~')
 		full_path = args[0];
 	else
 	{
-		printf("1 %p \n------%s\n", args[0], full_path);
 		full_path = getpath(args[0]);
-		printf("2 %p \n-------%s\n", args[0], full_path);
 		is_path = 0;
 	}
 	if (full_path == NULL)

@@ -43,6 +43,5 @@ char *getpath(const char *cmd)
 	if (PATH != NULL)
 		//free_args(PATH);
 		free(buf);
-	printf("%p  %s\n", cmd, check);
 	return (check);
 }

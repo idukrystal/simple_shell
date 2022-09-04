@@ -41,10 +41,13 @@ int count_args(char *str, char del)
  */
 char **extract_args(char *input, char del, int arg_count)
 {
-	char **args = malloc(sizeof(*args) * (arg_count + 1));
+	char **args;
+	static int op;
 	int pos = 0, i = 0, j, k;
 	char q = '\0';
-		printf("%c ---- %p\n", del,args);
+
+	args = malloc(sizeof(*args) * (arg_count + 1));
+	printf("%s  ____  %p %lu\n",input,  &args, (sizeof(*args) * (arg_count + 1)));
 	args[0] = NULL;
 	args[arg_count] = NULL;
 	while (input[i] != '\0')
@@ -103,3 +106,15 @@ char still_quoted(char new_q, char old_q)
 		return  ('\0');
 	return (old_q);
 }
+/*
+int main ()
+{
+	char *a = "maen of war";
+	int i = 0;
+	while (i++  < 10)
+	{
+		char **b = extract_args(a, ' ', 5000);
+		printf("%p\n", b);
+	}
+}
+*/
