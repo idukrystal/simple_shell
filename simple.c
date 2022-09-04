@@ -5,11 +5,13 @@ int main(int ac, char **av)
 {
 	char *cmd = NULL, **args = NULL;
 	size_t max = 0;
+	size_t runs = 0;
 	int ret  = 0, w = ac, is_atty = isatty(STDIN_FILENO);
 	run_info info = {NULL, 0, 0, 0};
 
 	while (1)
 	{
+		runs++;
 		print_prompt(is_atty);
 		w = _getline(&cmd, &max, STDIN_FILENO);
 		if (w == -1)
@@ -31,7 +33,7 @@ int main(int ac, char **av)
 		else
 			execute(args, av[0]);
 		if (info.err)
-			_printf("%s: %s: %s\n", av[0], args[0], info.err_msg);
+			_printf("%s: %i: %s: %s\n", av[0], runs,args[0], info.err_msg);
 		if (info.end)
 			break;
 		reset(&info);

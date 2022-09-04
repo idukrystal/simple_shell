@@ -47,7 +47,6 @@ char **extract_args(char *input, char del, int arg_count)
 	char q = '\0';
 
 	args = malloc(sizeof(*args) * (arg_count + 1));
-	printf("%s  ____  %p %lu\n",input,  &args, (sizeof(*args) * (arg_count + 1)));
 	args[0] = NULL;
 	args[arg_count] = NULL;
 	while (input[i] != '\0')
