@@ -95,7 +95,7 @@ void restruct(char **cmd, int i, int j, char *expand)
 void dollar(char **cmd, int *exitstatus)
 {
 	int i, j, k = 0;
-	char *expand, *p;
+	char *expand;
 
 	for (i = 0, j = 1; (*cmd)[j]; ++i, ++j)
 	{

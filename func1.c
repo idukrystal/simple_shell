@@ -39,29 +39,33 @@ int is_num(char *s)
  * @name: name of command
  * Return: 1 if successful, -1 otherwise
  */
-int run_built_in(char **cmd, char *name)
+int run_built_in(char **cmd, run_info *info)
 {
-	int i;
+	int i = 0 ;
 
 	if (_strcmp(cmd[0], "exit") == 0)
 	{
-		if (cmd[1] == NULL)
-			i = 0;
-		else if (is_num(cmd[1]))
-			i = (_atoi(cmd[1]));
+		if (cmd[1] == NULL || is_num(cmd[1]))
+		{
+			info->end = 1;
+			if (cmd[1] != NULL)
+				info->exit = (_atoi(cmd[1]));
+		}
 		else
-			_printf("%s: %s: invalid number %s", name, cmd[0], cmd[1]);
-		free_args(cmd);
-		return (i);
+		{
+			info->err = 1;
+			info->err_msg = strclone("illegal number: ");
+		}
+		i = 1;
 	}
-	if (_strcmp(cmd[0], "env") == 0)
+	else if (_strcmp(cmd[0], "env") == 0)
 	{
 		printenv();
-		return (1);
+		i = 1;
 	}
 	if (_strcmp(cmd[0], "cd") == 0)
 	{
-		return (ch_dir(cmd, name));
+		return (ch_dir(cmd, NULL));
 	}
 	if (_strcmp(cmd[0], "setenv") == 0)
 	{
@@ -78,9 +82,10 @@ int run_built_in(char **cmd, char *name)
 	}
 	if (_strcmp(cmd[0], "alias") == 0)
 	{
-		return (run_alias(cmd, name));
+		i = (run_alias(cmd, NULL));
 	}
-	return (-1);
+	free_args(cmd);
+	return (i);
 }
 
 /**

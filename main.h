@@ -23,7 +23,6 @@ char *getpath(char *cmd);
 int _strlen(const char *p);
 void _strcpy(char *from, char *to);
 void printenv(void);
-int run_built_in(char **cmd, char *);
 void print_prompt(int);
 void execute(char **args, char *name);
 int to_int(char *s, int start, int stop);

@@ -6,6 +6,7 @@ int main(int ac, char **av)
 	char *cmd = NULL, **args = NULL;
 	size_t max = 0;
 	int ret  = 0, w = ac, is_atty = isatty(STDIN_FILENO);
+	run_info info = {NULL, 0, 0, 0};
 
 	while (1)
 	{
@@ -17,8 +18,6 @@ int main(int ac, char **av)
 				_putchar('\n');
 			break;
 		}
-		if (w == 1)
-			continue;
 		cmd[w - 1] = (cmd[w - 1] == '\n') ? '\0' : cmd[w - 1];
 		args = extract_args(cmd, ' ', count_args(cmd, ' '));
 		if (args[0] == NULL)
@@ -27,21 +26,23 @@ int main(int ac, char **av)
 			continue;
 		}
 		args = un_alias(args);
-		ret = (run_built_in(args, av[0]));
-		if (ret  != -1)
-		{
-			if (ret == 1)
-				continue;
+		if (run_built_in(args, &info))
+			;
+		else
+			execute(args, av[0]);
+		if (info.err)
+			_printf("%s: %s: %s\n", av[0], args[0], info.err_msg);
+		printf("end %i\n", info.end);
+		if (info.end)
 			break;
-		}
-		ret = 0;
-		execute(args, av[0]);
+		reset(&info);
 	}
 	if (cmd != NULL)
 		free(cmd);
 
+
 	free_alias(*(alias()));
-	return (ret);
+	return (info.exit);
 }
 
 /**
@@ -65,6 +66,7 @@ void execute(char **args, char *name)
 	pid_t pid;
 	char *full_path = NULL;
 
+	printf("%s %s\n", args[0], full_path);
 	if ((args[0][0] == '.') || args[0][0] == '/' || args[0][0] == '~')
 		full_path = args[0];
 	else
@@ -72,16 +74,17 @@ void execute(char **args, char *name)
 		full_path = getpath(args[0]);
 		is_path = 0;
 	}
+	printf("%s %s\n", args[0], full_path);
 	if (full_path == NULL)
 	{
-		_printf("%s: %s: not found\n", name, args[0]);
+		_printf("%s: %s: not found\n", "broo", args[0]);
 	}
 	else
 	{
 		pid = fork();
 		if (pid == 0)
 		{
-			execve(full_path, args, environ);
+			execve(full_path, &full_path, NULL);
 			print_exec_error(args[0], name, errno);
 			exit(0);
 		}
@@ -133,4 +136,14 @@ char **un_alias(char **cmd)
 	free(cmd);
 	free(args);
 	return (new);
+}
+
+void reset(run_info *info)
+{
+	if (info->err_msg != NULL)
+		free(info->err_msg);
+	info->err_msg = NULL;
+	info->end = 0;
+	info->exit = 0;
+	info->err = 0;
 }

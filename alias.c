@@ -70,7 +70,6 @@ alias_t *get_alias(char *name)
 void  free_alias(alias_t *list)
 {
 	alias_t *tmp;
-	int i = 0;
 
 	for (tmp = list; tmp != NULL; tmp = tmp->next)
 	{
