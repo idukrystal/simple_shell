@@ -5,7 +5,7 @@
  * @cmd: string to be searched
  * Return: pointer to environ or null if failed
  */
-char *getpath(char *cmd)
+char *getpath(const char *cmd)
 {
 	int i, k = _strlen(cmd), l, m;
 	char *path = *_getenv("PATH"), *buf, *check = NULL, **PATH;
@@ -17,6 +17,7 @@ char *getpath(char *cmd)
 	_strcpy(path, buf);
 	for (i = 0; buf[i] != '/'; ++i)
 		buf[i] = ':';
+
 	PATH = extract_args(buf, ':', count_args(buf, ':'));
 	for (i = 0; PATH[i] != NULL; ++i)
 	{
@@ -40,7 +41,8 @@ char *getpath(char *cmd)
 		check = NULL;
 	}
 	if (PATH != NULL)
-		free_args(PATH);
-	free(buf);
+		//free_args(PATH);
+		free(buf);
+	printf("%p  %s\n", cmd, check);
 	return (check);
 }

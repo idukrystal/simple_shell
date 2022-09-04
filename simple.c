@@ -66,15 +66,16 @@ void execute(char **args, char *name)
 	pid_t pid;
 	char *full_path = NULL;
 
-	printf("%s %s\n", args[0], full_path);
+	printf("%p %s\n", args[0], full_path);
 	if ((args[0][0] == '.') || args[0][0] == '/' || args[0][0] == '~')
 		full_path = args[0];
 	else
 	{
+		printf("1 %p \n------%s\n", args[0], full_path);
 		full_path = getpath(args[0]);
+		printf("2 %p \n-------%s\n", args[0], full_path);
 		is_path = 0;
 	}
-	printf("%s %s\n", args[0], full_path);
 	if (full_path == NULL)
 	{
 		_printf("%s: %s: not found\n", "broo", args[0]);
@@ -84,7 +85,7 @@ void execute(char **args, char *name)
 		pid = fork();
 		if (pid == 0)
 		{
-			execve(full_path, &full_path, NULL);
+			execve(full_path, args, environ);
 			print_exec_error(args[0], name, errno);
 			exit(0);
 		}
@@ -107,7 +108,8 @@ void execute(char **args, char *name)
  */
 void print_exec_error(char *cmd, char *name, int  err)
 {
-	_printf("%s: %s: error - %i\n",name, cmd,  err);
+	perror("good : ");
+	//_printf("%s: %s: error - %i\n",name, cmd,  err);
 }
 
 char **un_alias(char **cmd)
