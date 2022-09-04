@@ -36,28 +36,15 @@ int is_num(char *s)
 /**
  * run_built_in - runs built in
  * @cmd: address of command
- * @name: name of command
+ * @info: stores execution info
  * Return: 1 if successful, -1 otherwise
  */
 int run_built_in(char **cmd, run_info *info)
 {
-	int i = 0 ;
+	int i = 0;
 
 	if (_strcmp(cmd[0], "exit") == 0)
-	{
-		if (cmd[1] == NULL || is_num(cmd[1]))
-		{
-			info->end = 1;
-			if (cmd[1] != NULL)
-				info->exit = (_atoi(cmd[1]));
-		}
-		else
-		{
-			info->err = 1;
-			info->err_msg = strclone("illegal number: ");
-		}
-		i = 1;
-	}
+		i = run_exit(cmd, info);
 	else if (_strcmp(cmd[0], "env") == 0)
 	{
 		printenv();

@@ -25,11 +25,13 @@ typedef struct run_info
 	run_info;
 
 /* simple.c */
+void execute(char **args, run_info *);
 char **un_alias(char **cmd);
 void reset(run_info *info);
 
 /* built_in.c */
 int  run_alias(char **args, char *name);
+int run_exit(char **cmd, run_info *info);
 
 /* alias.c */
 int add_alias(char *name, char *value);
@@ -51,4 +53,5 @@ char still_quoted(char new_q, char old_q);
 alias_t **alias();
 
 int run_built_in(char **cmd, run_info  *);
+int is_num(char *s);
 #endif

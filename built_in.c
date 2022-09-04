@@ -90,3 +90,26 @@ int  run_alias(char **args, char *name)
 	}
 	return (1);
 }
+
+/**
+ * run_exit - exit builtin
+ * @cmd: command and args
+ * @info: stores execution info
+ * Return: 1 on success
+ */
+int run_exit(char **cmd, run_info *info)
+{
+	if (cmd[1] == NULL || is_num(cmd[1]))
+	{
+		info->end = 1;
+		if (cmd[1] != NULL)
+			info->exit = (_atoi(cmd[1]));
+	}
+	else
+	{
+		info->err = 1;
+		info->err_msg = strclone("illegal number:\
+ ");
+	}
+	return (1);
+}

@@ -24,7 +24,6 @@ int _strlen(const char *p);
 void _strcpy(char *from, char *to);
 void printenv(void);
 void print_prompt(int);
-void execute(char **args, char *name);
 int to_int(char *s, int start, int stop);
 int _strcmp(char *dest, char *src);
 int _printf(const char *format, ...);

@@ -31,7 +31,7 @@ int main(int ac, char **av)
 		if (run_built_in(args, &info))
 			;
 		else
-			execute(args, av[0]);
+			execute(args, &info);
 		if (info.err)
 			_printf("%s: %i: %s: %s\n", av[0], runs,args[0], info.err_msg);
 		if (info.end)
@@ -61,7 +61,7 @@ void print_prompt(int is_term)
  * @args: arguments to pass to the program
  * @name: name of shell that is calling this fumction
  */
-void execute(char **args, char *name)
+void execute(char **args, run_info *info)
 {
 	int i, is_path = 1;
 	pid_t pid;
@@ -76,7 +76,8 @@ void execute(char **args, char *name)
 	}
 	if (full_path == NULL)
 	{
-		_printf("%s: %s: not found\n", "broo", args[0]);
+		info->err = 1;
+		info->err_msg = strclone("not found");
 	}
 	else
 	{
@@ -84,12 +85,14 @@ void execute(char **args, char *name)
 		if (pid == 0)
 		{
 			execve(full_path, args, environ);
-			print_exec_error(args[0], name, errno);
-			exit(0);
+			info->err = 1;
+			info->err_msg = strclone("cant exec");
+			info->end = 1;
 		}
 		else
 		{
 			wait(&i);
+			info->exit = errno;
 		}
 	}
 	if (args != NULL)
