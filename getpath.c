@@ -8,7 +8,7 @@
 char *getpath(const char *cmd)
 {
 	int i, k = _strlen(cmd), l, m;
-	char *path = *_getenv("PATH"), *buf, *check = NULL, **PATH;
+	char *path = *_getenv("PATH"), *buf, *check = NULL, **PATH = NULL;
 
 	buf = malloc(sizeof(char) * _strlen(path) + 1);
 	if (buf == NULL)
@@ -41,6 +41,9 @@ char *getpath(const char *cmd)
 		check = NULL;
 	}
 	if (PATH != NULL)
+	{
+		free_args(PATH);
 		free(buf);
+	}
 	return (check);
 }
