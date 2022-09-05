@@ -8,7 +8,7 @@
  *
  * Return: 0 if equal -1 if src is greater 1 if dest is greater
  */
-int _strcmp(char *dest, char *src)
+int _strcmp(const char *dest, const char *src)
 {
 	int len_d = _strlen(dest);
 	int len_s = _strlen(src);

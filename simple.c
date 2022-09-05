@@ -66,19 +66,25 @@ void execute(char **args, run_info *info)
 	int i, is_path = 1;
 	pid_t pid;
 	char *full_path = NULL;
+	int status = file_stat(args[0]);
 
-	if ((args[0][0] == '.') || args[0][0] == '/' || args[0][0] == '~')
+	if (status == 1)
 		full_path = args[0];
-	else
+	else if (status == 0)
 	{
 		full_path = getpath(args[0]);
 		is_path = 0;
+		if (full_path == NULL)
+			info->err_msg = strclone("not found");
 	}
+	else if (status == -1)
+		info->err_msg = strclone("looks like a dir");
+	else if (status == 3)
+                info->err_msg = strclone("not found");
+	else
+		info->err_msg = strclone("Permission denied");
 	if (full_path == NULL)
-	{
 		info->err = 1;
-		info->err_msg = strclone("not found");
-	}
 	else
 	{
 		pid = fork();
@@ -87,6 +93,7 @@ void execute(char **args, run_info *info)
 			execve(full_path, args, environ);
 			info->err = 1;
 			info->err_msg = strclone("cant exec");
+			perror("exec");
 			info->end = 1;
 		}
 		else
@@ -147,6 +154,5 @@ void reset(run_info *info)
 		free(info->err_msg);
 	info->err_msg = NULL;
 	info->end = 0;
-	info->exit = 0;
 	info->err = 0;
 }

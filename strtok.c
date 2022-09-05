@@ -7,7 +7,7 @@
  * @del: delimeter character
  * Return: count
  */
-int count_args(char *str, char del)
+int count_args(const char *str, char del)
 {
 	int i = 0;
 	char q = '\0';
@@ -39,7 +39,7 @@ int count_args(char *str, char del)
  * @arg_count: expected no of array
  * Return: array of string
  */
-char **extract_args(char *input, char del, int arg_count)
+char **extract_args(const char *input, char del, int arg_count)
 {
 	char **args;
 	static int op;
@@ -105,15 +105,3 @@ char still_quoted(char new_q, char old_q)
 		return  ('\0');
 	return (old_q);
 }
-/*
-int main ()
-{
-	char *a = "maen of war";
-	int i = 0;
-	while (i++  < 10)
-	{
-		char **b = extract_args(a, ' ', 5000);
-		printf("%p\n", b);
-	}
-}
-*/

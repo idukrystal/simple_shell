@@ -54,4 +54,7 @@ alias_t **alias();
 
 int run_built_in(char **cmd, run_info  *);
 int is_num(char *s);
+
+int file_stat(const char *path);
+int is_dir_name(const char *path);
 #endif

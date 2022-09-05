@@ -16,8 +16,8 @@
 extern char **environ;
 
 char **_getenv(const char *name);
-int count_args(char *str, char del);
-char **extract_args(char *input, char del, int arg_count);
+int count_args(const char *str, char del);
+char **extract_args(const char *input, char del, int arg_count);
 void free_args(char **args);
 char *getpath(const char *cmd);
 int _strlen(const char *p);
@@ -25,7 +25,7 @@ void _strcpy(char *from, char *to);
 void printenv(void);
 void print_prompt(int);
 int to_int(char *s, int start, int stop);
-int _strcmp(char *dest, char *src);
+int _strcmp(const char *dest,const  char *src);
 int _printf(const char *format, ...);
 unsigned int validate(const char *, int);
 int is_valid(char c);
