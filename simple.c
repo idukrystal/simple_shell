@@ -1,11 +1,16 @@
 #include "main.h"
 #include "chris.h"
 
+/**
+ * main - a simple shell
+ * @ac: argument connt
+ * @av: argument array
+ * Return: 0 on success or an no that indicates error
+ */
 int main(int ac, char **av)
 {
 	char *cmd = NULL, **args = NULL;
-	size_t max = 0;
-	size_t runs = 0;
+	size_t max = 0, runs = 0;
 	int ret  = 0, w = ac, is_atty = isatty(STDIN_FILENO);
 	run_info info = {NULL, 0, 0, 0};
 
@@ -27,13 +32,14 @@ int main(int ac, char **av)
 			free_args(args);
 			continue;
 		}
+		info.exit = 0;
 		args = un_alias(args);
 		if (run_built_in(args, &info))
 			;
 		else
 			execute(args, &info);
 		if (info.err)
-			_printf("%s: %i: %s: %s\n", av[0], runs,args[0], info.err_msg);
+			_printf("%s: %i: %s: %s\n", av[0], runs, args[0], info.err_msg);
 		if (info.end)
 			break;
 		free_args(args);
@@ -41,8 +47,6 @@ int main(int ac, char **av)
 	}
 	if (cmd != NULL)
 		free(cmd);
-
-
 	free_alias(*(alias()));
 	return (info.exit);
 }
@@ -60,7 +64,7 @@ void print_prompt(int is_term)
 /**
  * execute - executes a single program in a new process
  * @args: arguments to pass to the program
- * @name: name of shell that is calling this fumction
+ * @info: run info
  */
 void execute(char **args, run_info *info)
 {
@@ -78,10 +82,8 @@ void execute(char **args, run_info *info)
 		if (full_path == NULL)
 			info->err_msg = strclone("not found");
 	}
-	else if (status == -1)
-		info->err_msg = strclone("looks like a dir");
 	else if (status == 3)
-                info->err_msg = strclone("not found");
+		info->err_msg = strclone("not found");
 	else
 		info->err_msg = strclone("Permission denied");
 	if (full_path == NULL)
@@ -108,25 +110,18 @@ void execute(char **args, run_info *info)
 }
 
 /**
- * print_exec_error - prints an error message
- * @cmd: the comand that failed
- * @name: the name of the shell that ran that command
- * @err: error no coresponding to error
+ * un_alias - replace  an alias with its value
+ * @cmd: alias
+ * Return: alias value
  */
-void print_exec_error(char *cmd, char *name, int  err)
-{
-	perror("good : ");
-	//_printf("%s: %s: error - %i\n",name, cmd,  err);
-}
-
 char **un_alias(char **cmd)
 {
 	char **args, **new;
-	int i, j , tot;
+	int i, j, tot;
 	alias_t *tmp = get_alias(cmd[0]);
 
 	if (tmp == NULL)
-		return cmd;
+		return (cmd);
 	args = extract_args(tmp->val, ' ', count_args(tmp->val, ' '));
 
 	tot = count(args) + count(cmd);
@@ -137,9 +132,9 @@ char **un_alias(char **cmd)
 		new[i] = args[i];
 	}
 	for (j = 1; cmd[j] != NULL; j++, i++)
-        {
-                new[i] = cmd[j];
-        }
+	{
+		new[i] = cmd[j];
+	}
 	cmd[j] = NULL;
 	free(cmd[0]);
 	free(cmd);
@@ -147,6 +142,10 @@ char **un_alias(char **cmd)
 	return (new);
 }
 
+/**
+ * reset - resets run info
+ * @info: run info
+ */
 void reset(run_info *info)
 {
 	if (info->err_msg != NULL)

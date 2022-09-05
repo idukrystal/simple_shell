@@ -33,7 +33,6 @@ int ch_dir(char **cmd, char *name)
 		else
 		{
 			free(curr);
-			print_exec_error("cd", name, errno);
 		}
 	}
 	if (str != NULL)
