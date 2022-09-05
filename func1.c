@@ -71,8 +71,6 @@ int run_built_in(char **cmd, run_info *info)
 	{
 		i = (run_alias(cmd, NULL));
 	}
-	if (i)
-		free_args(cmd);
 	return (i);
 }
 

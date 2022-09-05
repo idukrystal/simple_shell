@@ -36,6 +36,7 @@ int main(int ac, char **av)
 			_printf("%s: %i: %s: %s\n", av[0], runs,args[0], info.err_msg);
 		if (info.end)
 			break;
+		free_args(args);
 		reset(&info);
 	}
 	if (cmd != NULL)
@@ -102,8 +103,6 @@ void execute(char **args, run_info *info)
 			info->exit = errno;
 		}
 	}
-	if (args != NULL)
-		free_args(args);
 	if (!is_path)
 		free(full_path);
 }
