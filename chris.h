@@ -35,6 +35,7 @@ typedef struct run_info
 void execute(char **args, run_info *);
 char **un_alias(char **cmd);
 void reset(run_info *info);
+void kabir(int p, int is_atty);
 
 /* built_in.c */
 int  run_alias(char **args, char *name);

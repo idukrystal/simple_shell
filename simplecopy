@@ -19,9 +19,12 @@ int main(int ac, char **av)
 		runs++;
 		print_prompt(is_atty);
 		w = _getline(&cmd, &max, STDIN_FILENO);
-		kabir(w, is_atty);
 		if (w == -1)
+		{
+			if (is_atty)
+				_putchar('\n');
 			break;
+		}
 		cmd[w - 1] = (cmd[w - 1] == '\n') ? '\0' : cmd[w - 1];
 		args = extract_args(cmd, ' ', count_args(cmd, ' '));
 		if (args[0] == NULL)
