@@ -39,7 +39,10 @@ int main(int ac, char **av)
 		else
 			execute(args, &info);
 		if (info.err)
-			_printf("%s: %i: %s: %s\n", av[0], runs, args[0], info.err_msg);
+		{
+			_printf("%s: %i: %s: ", av[0], runs, args[0]);
+			perror("");
+		}
 		if (info.end)
 			break;
 		free_args(args);
