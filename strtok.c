@@ -42,7 +42,6 @@ int count_args(const char *str, char del)
 char **extract_args(const char *input, char del, int arg_count)
 {
 	char **args;
-	static int op;
 	int pos = 0, i = 0, j, k;
 	char q = '\0';
 

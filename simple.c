@@ -11,7 +11,7 @@ int main(int ac, char **av)
 {
 	char *cmd = NULL, **args = NULL;
 	size_t max = 0, runs = 0;
-	int ret  = 0, w = ac, is_atty = isatty(STDIN_FILENO);
+	int w = ac, is_atty = isatty(STDIN_FILENO);
 	run_info info = {NULL, 0, 0, 0};
 
 	while (1)

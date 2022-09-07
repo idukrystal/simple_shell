@@ -11,9 +11,9 @@ int ch_dir(char **cmd, char *name)
 {
 	int i = 1;
 	DIR *dir;
-
 	char *curr = getcwd(NULL, 0), *str = NULL;
 
+	(void) name;
 	if (cmd[1] == NULL)
 	{
 		str = getvar("HOME");
@@ -103,12 +103,12 @@ int run_exit(char **cmd, run_info *info)
 		info->end = 1;
 		if (cmd[1] != NULL)
 			info->exit = (_atoi(cmd[1]));
+		free_args(cmd);
 	}
 	else
 	{
 		info->err = 1;
-		info->err_msg = strclone("illegal number:\
- ");
+		info->err_msg = strclone("illegal number: ");
 	}
 	return (1);
 }
