@@ -40,7 +40,7 @@ int main(int ac, char **av)
 			execute(args, &info);
 		if (info.err)
 		{
-			_printf("%s: %i: %s: ", av[0], runs, args[0]);
+			fprintf(stderr,"%s: %lu: %s: ", av[0], runs, args[0]);
 			perror("");
 		}
 		if (info.end)
