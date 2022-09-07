@@ -77,8 +77,8 @@ void execute(char **args, run_info *info)
 		full_path = args[0];
 	else if (status == 0)
 	{
-		full_path = getpath(args[0]);
-		is_path = 0;
+		/* full_path = getpath(args[0]); */
+		/* is_path = 0; */
 		if (full_path == NULL)
 			info->err_msg = strclone("not found");
 	}
