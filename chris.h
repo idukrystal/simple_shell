@@ -15,6 +15,13 @@ typedef struct alias_s
 }
 alias_t;
 
+/**
+ * struct run_info - runnable
+ * @err_msg: stuff giea
+ * @err: gih kbkw
+ * @end: hhahhana nanna
+ * @exit: hhqhhwhw
+ */
 typedef struct run_info
 {
 	char *err_msg;

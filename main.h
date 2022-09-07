@@ -25,7 +25,7 @@ void _strcpy(char *from, char *to);
 void printenv(void);
 void print_prompt(int);
 int to_int(char *s, int start, int stop);
-int _strcmp(const char *dest,const  char *src);
+int _strcmp(const char *dest, const char *src);
 int _printf(const char *format, ...);
 unsigned int validate(const char *, int);
 int is_valid(char c);

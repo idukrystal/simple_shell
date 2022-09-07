@@ -37,19 +37,14 @@ int ch_dir(char **cmd, char *name)
 	}
 	if (str != NULL)
 	{
-		printf("cd 3 1\n");
 		chdir(str);
 		free(str);
-		printf("cd 3 2 \n");
 		str = getcwd(NULL, 0);
-		printf("%s\n", str);
 		_setenv("PWD", strclone(str), &i);
 		if (_strcmp(str, curr) != 0)
 			_setenv("OLDPWD", curr, &i);
 		free(str);
-		printf("cd 3 4 \n");
 		free(curr);
-		printf("cd 3 5 \n");
 	}
 	printf("cd 4 \n");
 	return (i);
