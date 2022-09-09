@@ -90,10 +90,9 @@ char *unquote(char **str)
  */
 char *_strcat(char *dest, char *src)
 {
-	int o_len = _strlen(dest);
+	int o_len = _strlen(dest), i = 0;
 	int n_len = o_len + _strlen(src) + 1;
 	dest = _realloc(dest, o_len, n_len);
-	int i = 0;
 
 	for (; src[i] != '\0'; i++, o_len++)
 	{
