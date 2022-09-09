@@ -29,9 +29,8 @@ int file_stat(const char *path)
 
 	if (paths == 1 && path[0] != '/' && path[len - 1] != '/')
 	{
-		if ((is_dir_name(path)))
-			return (2);
-		return (0);
+		if (!(is_dir_name(path)))
+			return (0);
 	}
 	if (stat(path, &st) == 0)
 	{

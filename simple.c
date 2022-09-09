@@ -10,10 +10,9 @@
 int main(int ac, char **av)
 {
 	char *cmd = NULL, **args = NULL;
-	size_t max = 0, runs = 0;
+	size_t max = 0, runs = 0, err = 0;
 	int w = ac, is_atty = isatty(STDIN_FILENO);
 	run_info info = {NULL, 0, 0, 0};
-	int err = 0;
 
 	errno = 0;
 	while (1)
@@ -37,12 +36,6 @@ int main(int ac, char **av)
 			;
 		else
 			execute(args, &info);
-		if (errno != err)
-		{
-			printf("%i %i\n", err, errno);
-			info.exit = errno;
-			err = errno;
-		}
 		if (info.err)
 			fprintf(stderr, "%s: %lu: %s: %s\n", av[0], runs, args[0], info.err_msg);
 		if (info.end)
@@ -85,10 +78,13 @@ void execute(char **args, run_info *info)
 		full_path = args[0];
 	else if (status == 0)
 	{
-		/* full_path = getpath(args[0]); */
-		/* is_path = 0; */
+		full_path = getpath(args[0]);
+		is_path = 0;
 		if (full_path == NULL)
+		{
 			info->err_msg = strclone("not found");
+			errno = 2;
+		}
 	}
 	else if (status == 3)
 		info->err_msg = strclone("not found");
@@ -110,7 +106,10 @@ void execute(char **args, run_info *info)
 		else
 		{
 			wait(&i);
-			info->exit = errno;
+			if ( WIFEXITED(i))
+			{
+				info->exit = WEXITSTATUS(i);
+			}
 		}
 	}
 	if (!is_path)
@@ -125,7 +124,7 @@ void execute(char **args, run_info *info)
 char **un_alias(char **cmd)
 {
 	char **args, **new;
-	int i, j, tot;
+	int i = 0, j, tot;
 	alias_t *tmp = get_alias(cmd[0]);
 
 	if (tmp == NULL)
