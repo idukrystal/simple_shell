@@ -42,7 +42,7 @@ int main(int ac, char **av)
 			reset(&info);
 			break;
 		}
-	        free_args(args);
+		free_args(args);
 		reset(&info);
 	}
 	if (cmd != NULL)
@@ -68,33 +68,10 @@ void print_prompt(int is_term)
  */
 void execute(char **args, run_info *info)
 {
-	int i, is_path = 1;
+	int i, is_path = 1, status = file_stat(args[0]);
 	pid_t pid;
-	char *full_path = NULL;
-	int status = file_stat(args[0]);
+	char *full_path = get_valid_path(status, args, info, &is_path);
 
-	if (status == 1)
-		full_path = args[0];
-	else if (status == 0)
-	{
-		full_path = getpath(args[0]);
-		is_path = 0;
-		if (full_path == NULL)
-		{
-			info->err_msg = strclone("not found");
-			info->exit = 2;
-		}
-	}
-	else if (status == 3)
-	{
-		info->err_msg = strclone("not found");
-		info->exit = 2;
-	}
-	else
-	{
-		info->err_msg = strclone("Permission denied");
-		info->exit = 13;
-	}
 	if (full_path == NULL)
 		info->err = 1;
 	else
@@ -111,7 +88,7 @@ void execute(char **args, run_info *info)
 		else
 		{
 			wait(&i);
-			if ( WIFEXITED(i))
+			if (WIFEXITED(i))
 			{
 				info->exit = WEXITSTATUS(i);
 			}

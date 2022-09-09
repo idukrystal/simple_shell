@@ -56,3 +56,40 @@ int is_dir_name(const char *path)
 		return (1);
 	return (0);
 }
+
+/**
+ * get_valid_path - bunch of info and return the path to a program
+ * @status: is arg[0] a valid file path
+ * @args: arg[0] is a tgr program name or parh
+ * @info: you know the vibe
+ * @is_path: edits this if arg[0] is a file path
+ * Return: a path to a program or NULL
+ */
+char *get_valid_path(int status, char **args, run_info *info, int *is_path)
+{
+	char *full_path = NULL;
+
+	if (status == 1)
+		full_path = args[0];
+	else if (status == 0)
+	{
+		full_path = getpath(args[0]);
+		*is_path = 0;
+		if (full_path == NULL)
+		{
+			info->err_msg = strclone("not found");
+			info->exit = 2;
+		}
+	}
+	else if (status == 3)
+	{
+		info->err_msg = strclone("not found");
+		info->exit = 2;
+	}
+	else
+	{
+		info->err_msg = strclone("Permission denied");
+		info->exit = 13;
+	}
+	return (full_path);
+}
