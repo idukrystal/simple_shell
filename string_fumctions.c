@@ -91,7 +91,7 @@ char *unquote(char **str)
 char *_strcat(char *dest, char *src)
 {
 	int o_len = _strlen(dest);
-	int n_len = o_len + _strlen(src);
+	int n_len = o_len + _strlen(src) + 1;
 	dest = _realloc(dest, o_len, n_len);
 	int i = 0;
 
@@ -99,6 +99,6 @@ char *_strcat(char *dest, char *src)
 	{
 		dest[o_len] = src[i];
 	}
-	dest[--n_len] = src[i];
+	dest[n_len] = src[i];
 	return (dest);
 }
