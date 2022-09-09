@@ -30,6 +30,8 @@ int _strlen(const char *p)
 {
 	int i;
 
+	if (p == NULL)
+		return (0)
 	for (i = 0; p[i]; ++i)
 		;
 
