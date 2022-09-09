@@ -99,6 +99,6 @@ char *_strcat(char *dest, char *src)
 	{
 		dest[o_len] = src[i];
 	}
-	dest[n_len] = src[i];
+	dest[n_len--] = src[i];
 	return (dest);
 }
