@@ -1,3 +1,4 @@
+
 #include "main.h"
 #include "chris.h"
 
@@ -87,11 +88,14 @@ void execute(char **args, run_info *info)
 		}
 	}
 	else if (status == 3)
+	{
 		info->err_msg = strclone("not found");
+		info->exit = 2;
+	}
 	else
 	{
 		info->err_msg = strclone("Permission denied");
-		info->exit = 127;
+		info->exit = 13;
 	}
 	if (full_path == NULL)
 		info->err = 1;
