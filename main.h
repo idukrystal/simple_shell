@@ -14,6 +14,7 @@
 #include <stdarg.h>
 
 extern char **environ;
+extern int  errno;
 
 char **_getenv(const char *name);
 int count_args(const char *str, char del);

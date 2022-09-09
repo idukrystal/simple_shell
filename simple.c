@@ -13,7 +13,9 @@ int main(int ac, char **av)
 	size_t max = 0, runs = 0;
 	int w = ac, is_atty = isatty(STDIN_FILENO);
 	run_info info = {NULL, 0, 0, 0};
+	int err = 0;
 
+	errno = 0;
 	while (1)
 	{
 		runs++;
@@ -35,10 +37,14 @@ int main(int ac, char **av)
 			;
 		else
 			execute(args, &info);
-		if (info.err)
+		if (errno != err)
 		{
-			fprintf(stderr, "%s: %lu: %s: %s\n", av[0], runs, args[0], info.err_msg);
+			printf("%i %i\n", err, errno);
+			info.exit = errno;
+			err = errno;
 		}
+		if (info.err)
+			fprintf(stderr, "%s: %lu: %s: %s\n", av[0], runs, args[0], info.err_msg);
 		if (info.end)
 		{
 			reset(&info);

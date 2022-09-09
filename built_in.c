@@ -103,6 +103,7 @@ int run_exit(char **cmd, run_info *info)
 	else
 	{
 		info->err = 1;
+		info->exit = 2;
 		info->err_msg = strcat(strclone("illegal number: "), cmd[1]);
 	}
 	return (1);
