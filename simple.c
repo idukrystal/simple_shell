@@ -31,7 +31,6 @@ int main(int ac, char **av)
 			free_args(args);
 			continue;
 		}
-		info.exit = 0;
 		args = un_alias(args);
 		if (run_built_in(args, &info))
 			;
