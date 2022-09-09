@@ -44,7 +44,7 @@ int run_exit(char **cmd, run_info *info);
 /* alias.c */
 int add_alias(char *name, char *value);
 alias_t *get_alias(char *name);
-void  free_alias(alias_t *);
+void  free_alias(alias_t *, int mode);
 alias_t *parse_alias(char *str);
 void print_alias(alias_t *list, int, char *);
 

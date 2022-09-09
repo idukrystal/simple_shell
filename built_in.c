@@ -79,7 +79,7 @@ int  run_alias(char **args, char *name)
 			{
 				add_alias(tmp->name, tmp->val);
 			}
-			free_alias(tmp);
+			free_alias(tmp, 1);
 		}
 	}
 	return (1);
