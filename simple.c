@@ -83,13 +83,16 @@ void execute(char **args, run_info *info)
 		if (full_path == NULL)
 		{
 			info->err_msg = strclone("not found");
-			errno = 2;
+			info->exit = 2;
 		}
 	}
 	else if (status == 3)
 		info->err_msg = strclone("not found");
 	else
+	{
 		info->err_msg = strclone("Permission denied");
+		info->exit = 127;
+	}
 	if (full_path == NULL)
 		info->err = 1;
 	else
