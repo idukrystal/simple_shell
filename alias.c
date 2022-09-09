@@ -97,7 +97,7 @@ void print_alias(alias_t *list, int s, char *name)
 		if (list == NULL)
 			_printf("%s: %s: not found", name, "alias");
 		else
-			_printf("alias %s=\'%s\'\n", list->name, list->val);
+			_printf("%s=\'%s\'\n", list->name, list->val);
 		return;
 	}
 
