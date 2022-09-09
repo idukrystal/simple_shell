@@ -37,12 +37,14 @@ int main(int ac, char **av)
 			execute(args, &info);
 		if (info.err)
 		{
-			fprintf(stderr, "%s: %lu: %s: ", av[0], runs, args[0]);
-			perror("");
+			fprintf(stderr, "%s: %lu: %s: %s\n", av[0], runs, args[0], info.err_msg);
 		}
 		if (info.end)
+		{
+			reset(&info);
 			break;
-		free_args(args);
+		}
+	        free_args(args);
 		reset(&info);
 	}
 	if (cmd != NULL)
