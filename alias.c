@@ -73,7 +73,6 @@ void  free_alias(alias_t *list, int mode)
 
 	if (mode)
 	{
-		printf("dingle\n");
 		tmp = list;
 		if (tmp->val != NULL)
                         free(tmp->val);
@@ -87,7 +86,6 @@ void  free_alias(alias_t *list, int mode)
 	{
 	for (tmp = list; tmp->next != NULL; tmp = tmp->next)
 	{
-		printf("all\n");
 		if (tmp->val != NULL)
 			free(tmp->val);
 
@@ -117,7 +115,7 @@ void print_alias(alias_t *list, int s, char *name)
 	if (s)
 	{
 		if (list == NULL)
-			_printf("%s: %s: not found", name, "alias");
+			_printf("%s: %s: not found\n", name, "alias");
 		else
 			_printf("%s=\'%s\'\n", list->name, list->val);
 		return;

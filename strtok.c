@@ -45,7 +45,7 @@ char **extract_args(const char *input, char del, int arg_count)
 	int pos = 0, i = 0, j, k;
 	char q = '\0';
 
-	args = malloc(sizeof(*args) * (arg_count + 1));
+	args = _malloc(sizeof(*args) * (arg_count + 1));
 	args[0] = NULL;
 	args[arg_count] = NULL;
 	while (input[i] != '\0')
