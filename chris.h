@@ -67,4 +67,6 @@ int is_num(char *s);
 int file_stat(const char *path);
 int is_dir_name(const char *path);
 char *get_valid_path(int status, char **args, run_info *info, int *is_path);
+
+void print_alias_rec(alias_t *, char *);
 #endif

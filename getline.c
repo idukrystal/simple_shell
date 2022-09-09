@@ -51,3 +51,11 @@ ssize_t  _getline(char **line, size_t *size, int fd)
 	}
 	return (i);
 }
+
+void print_alias_rec(alias_t *list,char  *name)
+{
+	if (list == NULL)
+		return;
+	print_alias_rec(list->next, name);
+	print_alias(list, 1, name);
+}

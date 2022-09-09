@@ -70,7 +70,6 @@ alias_t *get_alias(char *name)
 void  free_alias(alias_t *list, int mode)
 {
 	alias_t *tmp = NULL;
-
 	if (mode)
 	{
 		tmp = list;
@@ -110,8 +109,6 @@ void  free_alias(alias_t *list, int mode)
  */
 void print_alias(alias_t *list, int s, char *name)
 {
-	alias_t *tmp;
-
 	if (s)
 	{
 		if (list == NULL)
@@ -120,11 +117,7 @@ void print_alias(alias_t *list, int s, char *name)
 			_printf("%s=\'%s\'\n", list->name, list->val);
 		return;
 	}
-
-	for (tmp = list; tmp != NULL; tmp = tmp->next)
-	{
-		_printf("%s=\'%s\'\n", tmp->name, tmp->val);
-	}
+	print_alias_rec(list, name);
 }
 
 /**
