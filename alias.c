@@ -114,7 +114,7 @@ void print_alias(alias_t *list, int s, char *name)
 
 	for (tmp = list; tmp != NULL; tmp = tmp->next)
 	{
-		_printf("alias %s=\'%s\'\n", tmp->name, tmp->val);
+		_printf("%s=\'%s\'\n", tmp->name, tmp->val);
 	}
 }
 
