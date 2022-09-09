@@ -44,7 +44,10 @@ int run_built_in(char **cmd, run_info *info)
 	int i = 0;
 
 	if (_strcmp(cmd[0], "exit") == 0)
+	{
 		i = run_exit(cmd, info);
+		return (i);
+        }
 	else if (_strcmp(cmd[0], "env") == 0)
 	{
 		printenv();
