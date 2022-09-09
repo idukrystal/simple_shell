@@ -104,7 +104,7 @@ int run_exit(char **cmd, run_info *info)
 	{
 		info->err = 1;
 		info->exit = 2;
-		info->err_msg = strcat(strclone("Illegal number: "), cmd[1]);
+		info->err_msg = _strcat(strclone("Illegal number: "), cmd[1]);
 	}
 	return (1);
 }

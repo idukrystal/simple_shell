@@ -51,6 +51,7 @@ void print_alias(alias_t *list, int, char *);
 /* string_function.c */
 char *strclone(char *str);
 char *unquote(char **str);
+char *_strcat(char *dest, char *src);
 
 /* alloc.c */
 void *_malloc(unsigned long);
