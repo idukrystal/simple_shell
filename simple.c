@@ -14,7 +14,7 @@ int main(int ac, char **av)
 	int w = ac, is_atty = isatty(STDIN_FILENO), is_file = 0, fd;
 	run_info info = {NULL, 0, 0, 0};
 
-	set_mode(ac, av[1], &fd, &is_file, &is_atty);
+	set_mode(ac, av[1], &fd, &is_file, &is_atty, av[0]);
 	while (1)
 	{
 		runs++;

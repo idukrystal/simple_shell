@@ -62,7 +62,7 @@ char still_quoted(char new_q, char old_q);
 /* system.c */
 alias_t **alias();
 void set_mode(int, char *file, int *fd, int *is_file, int *is_atty);
-void save_exit(char *, int is_file, int fd);
+void save_exit(char *, int is_file, int fd, char *);
 
 int run_built_in(char **cmd, run_info  *);
 int is_num(char *s);

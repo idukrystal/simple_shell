@@ -19,16 +19,17 @@ alias_t **alias()
  * @fd: todo
  * @is_file: todos
  * @is_atty: todo
+ * @n: rrtf
  */
-void set_mode(int ac, char *file, int *fd, int *is_file, int *is_atty)
+void set_mode(int ac, char *file, int *fd, int *is_file, int *is_atty, n)
 {
 	if (ac > 1)
 	{
 		*fd = open(file, O_RDONLY);
 		if (*fd == -1)
 		{
-			perror("");
-			exit(errno);
+			fprintf(stderr, "%s: %lu: %s: %s\n", n, 0, file, "");
+			exit(127);
 		}
 		*is_file = 1;
 		*is_atty = 0;
