@@ -1,5 +1,6 @@
 #ifndef CHRIS_H
 #define CHRIS_H
+#include <fcntl.h>
 
 /**
  * struct alias_s - represents a single alias
