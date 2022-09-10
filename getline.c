@@ -52,7 +52,12 @@ ssize_t  _getline(char **line, size_t *size, int fd)
 	return (i);
 }
 
-void print_alias_rec(alias_t *list,char  *name)
+/**
+ * print_alias_rec - ptints
+ * @list: todo
+ * @name: todo
+ */
+void print_alias_rec(alias_t *list, char  *name)
 {
 	if (list == NULL)
 		return;

@@ -65,26 +65,33 @@ alias_t *get_alias(char *name)
 /**
  * free_alias - frees alias
  * @list: pointer to head of alias
- * Return: void
+ * @mode: type
  */
-void  free_alias(alias_t *list, int mode)
+void free_alias(alias_t *list, int mode)
 {
 	alias_t *tmp = NULL;
+
 	if (mode)
 	{
 		tmp = list;
 		if (tmp->val != NULL)
-                        free(tmp->val);
-
-                if (tmp->name != NULL)
-                        free(tmp->name);
-                free(tmp);
+			free(tmp->val);
+		if (tmp->name != NULL)
+			free(tmp->name);
+		free(tmp);
 		return;
 	}
-	if(list != NULL)
+	if (list != NULL)
 	{
-	for (tmp = list; tmp->next != NULL; tmp = tmp->next)
-	{
+		for (tmp = list; tmp->next != NULL; tmp = tmp->next)
+		{
+			if (tmp->val != NULL)
+				free(tmp->val);
+
+			if (tmp->name != NULL)
+				free(tmp->name);
+			free(tmp);
+		}
 		if (tmp->val != NULL)
 			free(tmp->val);
 
@@ -92,13 +99,6 @@ void  free_alias(alias_t *list, int mode)
 			free(tmp->name);
 		free(tmp);
 	}
-                if (tmp->val != NULL)
-                        free(tmp->val);
-
-                if (tmp->name != NULL)
-                        free(tmp->name);
-                free(tmp);
-        }
 }
 
 /**

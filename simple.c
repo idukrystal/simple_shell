@@ -11,15 +11,15 @@ int main(int ac, char **av)
 {
 	char *cmd = NULL, **args = NULL;
 	size_t max = 0, runs = 0;
-	int w = ac, is_atty = isatty(STDIN_FILENO);
+	int w = ac, is_atty = isatty(STDIN_FILENO), is_file = 0, fd;
 	run_info info = {NULL, 0, 0, 0};
 
-	errno = 0;
+	set_mode(ac, av[1], &fd, &is_file, &is_atty);
 	while (1)
 	{
 		runs++;
 		print_prompt(is_atty);
-		w = _getline(&cmd, &max, STDIN_FILENO);
+		w = _getline(&cmd, &max, fd);
 		kabir(w, is_atty);
 		if (w == -1)
 			break;
@@ -45,8 +45,7 @@ int main(int ac, char **av)
 		free_args(args);
 		reset(&info);
 	}
-	if (cmd != NULL)
-		free(cmd);
+	save_exit(cmd, is_file, fd);
 	free_alias(*(alias()), 0);
 	return (info.exit);
 }
