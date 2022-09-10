@@ -60,7 +60,7 @@ int run_built_in(char **cmd, run_info *info)
 	if (_strcmp(cmd[0], "setenv") == 0)
 	{
 		if (count(cmd) != 3)
-			_printf("usage : setenv VARIABLE VALUE\n");
+			;
 		else
 			_setenv(cmd[1], cmd[2], &i);
 		return (1);
